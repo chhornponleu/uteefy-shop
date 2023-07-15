@@ -1,0 +1,11 @@
+{
+    "buildCommand": "yarn build:web",
+    "outputDirectory": "./dist",
+    "installCommand": "yarn install",
+    "rewrites": [
+        {
+            "source": "/(.*)",
+            "destination": "/index.html"
+        }
+    ]
+}
