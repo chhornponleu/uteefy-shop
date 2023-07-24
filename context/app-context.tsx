@@ -1,8 +1,9 @@
 
 
-import { User } from "firebase/auth/react-native";
+import { User, getAuth } from "firebase/auth/react-native";
+import React, { useEffect, useLayoutEffect } from "react";
 import { Store } from "../data/store";
-import React from "react";
+
 
 interface IAppContext {
     user?: User;
@@ -20,23 +21,56 @@ export function useAppContext() {
     return React.useContext(AppContext);
 }
 
-export function AppProvider(props) {
+export function AppContextProvider(props) {
+    const [appState, setAppState] = React.useState<IAppContext>({
+        ready: false,
+        locale: 'en'
+    });
 
-    const [user, setUser] = React.useState<User>();
-    const [store, setStore] = React.useState<Store>();
-    const [locale, setLocale] = React.useState('en');
-    const [ready, setReady] = React.useState(false);
+    useLayoutEffect(() => {
+        const auth = getAuth()
+        auth.onAuthStateChanged((user) => {
+            console.log('onAuthStateChanged', user);
+            setAppState(prev => ({
+                ...prev,
+                user,
+            }))
+        })
+    }, [])
 
     return (
         <AppContext.Provider
             value={{
-                user,
-                store,
-                locale,
-                ready
+                ...appState,
             }}
         >
             {props.children}
         </AppContext.Provider>
     );
 }
+
+
+
+// interface AppState {
+//     user?: User;
+//     store?: Store;
+//     locale: string;
+//     ready: boolean;
+// }
+
+// const useAppState = create<AppState>()(
+//     persist(
+//         (set, get) => ({
+//             user: undefined,
+//             store: undefined,
+//             locale: 'en',
+//             setUser: (user: User) => set({ user }),
+//             setStore: (store: Store) => set({ store }),
+//             setLocale: (locale: string) => set({ locale }),
+//         }),
+//         {
+//             name: 'app-state',
+//             storage: createJSONStorage(() => AsyncStorage),
+//         }
+//     )
+// );

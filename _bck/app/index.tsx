@@ -1,14 +1,15 @@
-import { Platform, Pressable, ScrollView, TouchableOpacity, useWindowDimensions, View } from "react-native";
+import { Platform, ScrollView, TouchableOpacity, useWindowDimensions, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Path, Svg } from 'react-native-svg';
+import { colors } from "../../commons/colors";
 
 import { Stack, useRootNavigation, useRouter, useSegments } from "expo-router";
 import Animated, { Extrapolate, interpolate, useAnimatedScrollHandler, useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
-import { colors } from "../commons/colors";
-import { Box, Card } from "../components/containers";
-import { createStyleHook } from "../hooks/createStyleHook";
-import { useAuthStore } from "../modules/auth/useAuthStore";
-import { Text } from "../components/typo";
+import { Box, Card } from "../../components/containers";
+import { Text } from "../../components/typo";
+import { createStyleHook } from "../../hooks/createStyleHook";
+import { useDeviceQuery } from "../../hooks/useDeviceQuery";
+import { useAuthStore } from "../../modules/auth/useAuthStore";
 
 const AnimatedScrollView = Animated.createAnimatedComponent(ScrollView);
 
@@ -62,6 +63,14 @@ export default function Index() {
         router.replace('/stores/12345')
     }
 
+    const { select } = useDeviceQuery()
+
+    const style = select({
+        phone: "phone",
+        desktop: "desktop",
+        tablet: "tablet",
+        default: "default",
+    })
 
     return (
         <View style={styles.wrapper}>
@@ -97,9 +106,9 @@ export default function Index() {
                 <Card flex={{ gap: 8 }}>
                     <Text color={"red"} my={30} font={{ size: 16 * 1.5, weight: '600' }}>Login</Text>
 
-                    <Pressable onPress={login} style={styles.button}>
+                    <TouchableOpacity onPress={login} style={styles.button}>
                         <Text>Login with Phone </Text>
-                    </Pressable>
+                    </TouchableOpacity>
 
                     <TouchableOpacity onPress={loginWithGmail} style={[styles.button, { backgroundColor: colors.red['500'] }]}>
                         <Box>
