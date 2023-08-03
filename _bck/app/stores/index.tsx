@@ -7,8 +7,9 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { colors } from "../../../commons/colors";
 import { Box } from "../../../components/containers";
 import { Text } from "../../../components/typo";
-import { Store, useStoreList } from "../../../data/store";
 import { auth } from "../../../libs/firebase";
+import { Store } from "../../../data/types";
+import { useStoreList } from "../../../data/store";
 
 type Props = {};
 

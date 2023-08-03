@@ -2,27 +2,27 @@ import {
     useTheme
 } from "@react-navigation/native";
 import React from 'react';
-import { colors } from "../../commons/colors";
 import { Text } from "../typo";
 import { Box, BoxProps } from './Box';
+import { colors } from "../../commons/colors";
 interface CardProps extends BoxProps {
 
 }
 
 function Card({ ...props }: CardProps) {
     return (
-        <Box p={16} {...props} />
+        <Box px={16} py={8} {...props} />
     )
 }
 
-function CardHeader(props: { title: string, subTitle?: string; rightIcons?: any; }) {
+function CardHeader({ title, subTitle, right: rightIcons, ...props }: { title: string | React.JSX.Element, subTitle?: string; right?: any; } & BoxProps) {
     return (
-        <Box row mb={8} flex={{ justify: 'space-between' }}>
+        <Box row py={8} flex={{ justify: 'space-between' }} {...props}>
             <Box flex>
-                <Text font={{ size: 16, weight: 'bold' }}>{props.title}</Text>
-                <Text font={{ size: 14, }} color={colors.gray[400]}>{props.subTitle}</Text>
+                {title ? (<Text font={{ size: 16, weight: 'bold' }}>{title}</Text>) : null}
+                {subTitle ? (<Text size={14} color={colors.gray[500]}>{subTitle}</Text>) : null}
             </Box>
-            {props.rightIcons}
+            {rightIcons}
         </Box>
     )
 }
@@ -35,10 +35,11 @@ function CardContent({ children, bordered, ...props }: { children: any, bordered
         borderedProps.border = { width: 1, color: theme.colors.border, radius: 8 }
     }
     return (
-        <Box  {...borderedProps} flex={{ justify: 'space-between' }} {...borderedProps} {...props}>
+        <Box py={8} {...borderedProps} flex={{ justify: 'space-between' }} {...borderedProps} {...props}>
             {children}
         </Box>
     )
 }
 
-export { Card, CardHeader, CardContent };
+export { Card, CardContent, CardHeader };
+

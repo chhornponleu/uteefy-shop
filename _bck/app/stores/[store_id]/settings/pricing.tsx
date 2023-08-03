@@ -96,7 +96,7 @@ export default function Pricing({ }: Props) {
                 <Card>
                     <CardHeader
                         title="Taxes and duties"
-                        rightIcons={
+                        right={
                             <Ionicons name="add" size={20} style={{ marginRight: 8 }} color={colors.blue['800']} />
                         }
                     />

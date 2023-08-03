@@ -66,7 +66,7 @@ export default function Info({ }: Props) {
                 <Card>
                     <CardHeader
                         title="Store details"
-                        rightIcons={pencilIcon}
+                        right={pencilIcon}
                     />
                     <CardContent bordered gap={20}>
                         <Box>
@@ -82,7 +82,7 @@ export default function Info({ }: Props) {
 
 
                 <Card>
-                    <CardHeader title="Languages" rightIcons={pencilIcon} />
+                    <CardHeader title="Languages" right={pencilIcon} />
                     <CardContent bordered gap={16}>
                         <Value title="English" />
                         <Value title="Khmer" />
@@ -106,7 +106,7 @@ export default function Info({ }: Props) {
 
 
                 <Card>
-                    <CardHeader title="Location" rightIcons={pencilIcon} />
+                    <CardHeader title="Location" right={pencilIcon} />
                     <CardContent bordered gap={16}>
                         <Box>
                             <Field title="Country" />

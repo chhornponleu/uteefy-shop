@@ -1,9 +1,15 @@
 import { Stack } from "expo-router";
-import React from 'react'
+import { colors } from "../../../commons/colors";
+import { defaultStackOptions } from "../../../commons/navigation";
 
-type Props = {};
-export default function _layout({ }: Props) {
+export default function StoreSettingsLayout() {
     return (
-        <Stack />
+        <Stack screenOptions={{
+            ...defaultStackOptions,
+            headerTintColor: colors.blue['800'],
+        }}>
+            <Stack.Screen name="index" options={{ title: 'Settings' }} />
+            <Stack.Screen name="info" options={{ title: 'Store Info' }} />
+        </Stack>
     )
-}
+};

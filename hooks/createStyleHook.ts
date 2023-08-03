@@ -38,7 +38,7 @@ type CallbackParams = {
     height: number
     theme: ColorSchemeName,
 }
-function createStyleHook<T>(
+function createStyleHook<T extends StyleSheet.NamedStyles<T> | StyleSheet.NamedStyles<any>>(
     callabck: ({ height, theme, width }: CallbackParams) => T
 ) {
     return function useStyleHook() {

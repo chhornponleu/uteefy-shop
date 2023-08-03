@@ -3,11 +3,11 @@ import React, { useState } from 'react';
 import { Alert, Button, TextInput } from "react-native";
 
 import { sendEmailVerification, signInWithEmailAndPassword } from "firebase/auth/react-native";
-import { Box } from "../components/containers";
-import { auth } from "../libs/firebase";
+import { Box } from "../../components/containers";
+import { auth } from "../../libs/firebase";
 
 type Props = {};
-export default function LogInWithPhone({ }: Props) {
+export default function Login({ }: Props) {
     const route = useRouter();
     const naviagtion = useRootNavigation();
     const nav = useNavigation();
@@ -16,20 +16,19 @@ export default function LogInWithPhone({ }: Props) {
     function login() {
         signInWithEmailAndPassword(auth, email, '123456')
             .then((userCredential) => {
-                // Signed in‚
                 const user = userCredential.user;
                 console.log('success', user);
                 if (user.emailVerified) {
-                    route.replace('/stores');
+                    route.replace('/store-list');
                 }
                 else {
-                    sendEmailVerification(user, { url: 'https://auth.uteefy.com', handleCodeInApp: true }).then(value => {
-                        console.log('sendEmailVerification success', value);
-                    }).catch(error => {
-                        console.log('sendEmailVerification fail', error);
-                    });
+                    sendEmailVerification(user, { url: 'https://auth.uteefy.com', handleCodeInApp: true })
+                        .then(value => {
+                            console.log('sendEmailVerification success', value);
+                        }).catch(error => {
+                            console.log('sendEmailVerification fail', error);
+                        });
                 }
-                // ...
             })
             .catch((error) => {
                 const errorCode = error.code;

@@ -39,7 +39,7 @@ export default function Users({ }: Props) {
             <Card>
                 <CardHeader
                     title="All users"
-                    rightIcons={(
+                    right={(
                         <TouchableOpacity onPress={() => setTmpValue({} as any)}>
                             <Ionicons name="add" size={26} />
                         </TouchableOpacity>

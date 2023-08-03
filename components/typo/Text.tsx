@@ -1,4 +1,8 @@
 import { Text as RNText, TextProps as RNTextProps, TextStyle } from "react-native";
+import {
+    useTheme
+} from "@react-navigation/native";
+
 
 export { Text };
 
@@ -68,6 +72,7 @@ function Text({
 
     ...props
 }: TextProps) {
+    const theme = useTheme();
     const s: TextStyle = {}
     if (font != undefined) {
         s.color = font.color
@@ -106,6 +111,10 @@ function Text({
     if (pl != undefined) s.paddingLeft = ml
     if (px != undefined) s.paddingHorizontal = px
     if (py != undefined) s.paddingVertical = py
+
+    if (!s.color) {
+        s.color = theme.colors.text
+    }
 
     return (
         <RNText  {...props} style={[s, style,]} />

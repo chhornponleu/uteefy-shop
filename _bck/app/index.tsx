@@ -3,13 +3,14 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Path, Svg } from 'react-native-svg';
 import { colors } from "../../commons/colors";
 
-import { Stack, useRootNavigation, useRouter, useSegments } from "expo-router";
+import { Redirect, Stack, useRootNavigation, useRouter, useSegments } from "expo-router";
 import Animated, { Extrapolate, interpolate, useAnimatedScrollHandler, useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
 import { Box, Card } from "../../components/containers";
 import { Text } from "../../components/typo";
 import { createStyleHook } from "../../hooks/createStyleHook";
 import { useDeviceQuery } from "../../hooks/useDeviceQuery";
 import { useAuthStore } from "../../modules/auth/useAuthStore";
+import { useAppContext } from "../../context/app-context";
 
 const AnimatedScrollView = Animated.createAnimatedComponent(ScrollView);
 
@@ -29,6 +30,8 @@ export default function Index() {
     const insets = useSafeAreaInsets();
     const { width, height } = useWindowDimensions();
     const s = useSegments();
+
+    const { user, store } = useAppContext()
 
     const router = useRouter();
     const navigation = useRootNavigation()
@@ -71,6 +74,8 @@ export default function Index() {
         tablet: "tablet",
         default: "default",
     })
+
+
 
     return (
         <View style={styles.wrapper}>
