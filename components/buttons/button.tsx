@@ -1,12 +1,9 @@
 
 
 import React from 'react';
-import { Pressable, PressableProps, View, ViewStyle } from "react-native";
+import { Pressable, PressableProps, StyleProp, ViewStyle } from "react-native";
 import { colors } from "../../commons/colors";
-import { createStyleHook } from "../../hooks/createStyleHook";
-import { Box, BoxProps } from "../containers";
 import { Text } from "../typo";
-import { TranslationsKey } from "../../libs/i18n";
 
 const Variants = {
     'default': { color: colors.white, backgroundColor: colors.black },
@@ -16,11 +13,22 @@ const Variants = {
 }
 
 const Sizes = {
-    'sm': 8,
-    'md': 16,
-    'lg': 20,
-    'xl': 24
+    'sm': 32,
+    'md': 48,
+    'lg': 52,
+    'xl': 56,
 }
+
+const Radius = {
+    'xs': 4,
+    'sm': 8,
+    'md': 12,
+    'lg': 16,
+    'xl': 20,
+    'pill': 100
+}
+
+type Type = 'plain' | 'bordered' | 'filled' | 'gradient';
 
 type Props = PressableProps & {
     loading?: boolean;
@@ -29,10 +37,13 @@ type Props = PressableProps & {
     width?: number | string;
     height?: number | string;
     activeOpacity?: number;
-    containerProps?: BoxProps;
     children?: any;
     size?: keyof typeof Sizes;
     variant?: keyof typeof Variants;
+    radius?: keyof typeof Radius;
+    alignSelf?: ViewStyle['alignSelf'];
+    type?: Type;
+    textColor?: string;
 }
 
 
@@ -41,39 +52,45 @@ export function Button({
     left,
     right,
     width,
-    activeOpacity = 0.6,
+    activeOpacity = 0.7,
     children,
-    containerProps: wrapperProps,
     variant = 'default',
     size = 'md',
+    radius = 'sm',
+    alignSelf = 'stretch',
+    type = 'filled',
+    textColor,
 
     style,
     ...props
 }: Props) {
+
     const { backgroundColor, color } = Variants[variant] || {};
-    const padding = Sizes[size];
+    const minHeight = Sizes[size];
+    const borderRadius = Radius[radius];
 
     return (
         <Pressable
             style={({ ...params }) => ([
-                { opacity: params.pressed ? activeOpacity : 1, backgroundColor },
-                { borderRadius: padding ? padding / 4 : 0 },
+                { alignSelf, alignItems: 'center', justifyContent: 'center', flexDirection: 'row' },
+                {
+                    alignSelf,
+                    borderRadius,
+                    backgroundColor,
+                    opacity: params.pressed ? activeOpacity : 1,
+                    minHeight,
+                    paddingHorizontal: minHeight
+                },
                 typeof style === "function" ? style(params) : style
             ])}
             {...props}
         >
-            <Box
-                row center
-                px={padding ? padding * 2 : undefined}
-                py={padding}
-                {...(wrapperProps || {})}
-            >
-                {left}
-                <Text align="center" color={colors.white}>
-                    {children}
-                </Text>
-                {right}
-            </Box>
+
+            {left}
+            <Text align="center" color={textColor || colors.white}>
+                {children}
+            </Text>
+            {right}
         </Pressable>
     )
 }

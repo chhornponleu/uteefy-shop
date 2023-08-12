@@ -8,8 +8,7 @@ export default function StoreItemsIndex({ }: Props) {
     const router = useRouter()
     return (
         <Box flex center>
-            <Text>Store Home</Text>
-
+            <Text>Products</Text>
         </Box>
     )
 }

@@ -2,13 +2,12 @@
 import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import { Stack, Tabs, useNavigation, useRouter, useSearchParams } from 'expo-router';
-import { MotiView } from "moti";
-import { ScrollView, Settings, TouchableOpacity, useWindowDimensions } from "react-native";
+import { ScrollView, TouchableOpacity, useWindowDimensions } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { colors } from "../../../../commons/colors";
 import { Box } from "../../../../components/containers";
 import { Text } from "../../../../components/typo";
 import { useWidth } from "../../../../hooks/useWidth";
-import { colors } from "../../../../commons/colors";
 
 import {
     useTheme,
@@ -18,13 +17,7 @@ import { useStoreDetail } from "../../../../data/store";
 type IconParams = { color?: string, focused?: boolean, size?: number }
 const tabIcons = {
     home: ({ color, focused }: IconParams) => (
-        <MotiView
-            from={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ type: 'timing', duration: 1000 }}
-        >
-            <MaterialCommunityIcons name="home-minus-outline" size={24} color={color} />
-        </MotiView>
+        <MaterialCommunityIcons name="home-minus-outline" size={24} color={color} />
     ),
     orders: ({ color }: IconParams) => (
         <AntDesign name="profile" size={22} color={color} />
