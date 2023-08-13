@@ -23,7 +23,7 @@ type UseI18nManyProps<T extends string> = {
     [key in T]?: {
         fallback?: string;
         params?: Record<string, string>;
-    }
+    } | undefined
 };
 
 type UseI18nManyOptions = {

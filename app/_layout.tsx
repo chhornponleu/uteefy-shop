@@ -7,8 +7,9 @@ import {
 } from "@react-navigation/native";
 import { useMemo } from "react";
 import { useColorScheme } from "react-native";
-import { LightTheme } from "../hooks/useTheme";
+import { LightTheme, DarkTheme } from "../hooks/useTheme";
 import { I18nContextProvider } from "../libs/i18n";
+import { StatusBar } from "expo-status-bar";
 
 type Props = {};
 
@@ -19,6 +20,7 @@ export default function RootLayout({ }: Props) {
     const theme = useColorScheme();
     const themeColors = useMemo(() => {
         return LightTheme;
+        // return DarkTheme;
     }, [theme])
     return (
         <QueryClientProvider client={client}>
@@ -26,12 +28,6 @@ export default function RootLayout({ }: Props) {
                 <AppContextProvider>
                     <ThemeProvider value={themeColors}>
                         <Slot />
-                        {/* 
-                        <Stack screenOptions={{
-                            ...defaultStackOptions,
-                            headerShown: false,
-                        }} /> 
-                        */}
                     </ThemeProvider>
                 </AppContextProvider>
             </I18nContextProvider>

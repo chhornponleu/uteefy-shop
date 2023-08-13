@@ -14,3 +14,17 @@
 :: milestones 2:
 - inventory
 - orders
+
+----
+set up store
+- name
+- type
+- address
+- phone
+- email
+- logo
+- cover
+
+- description
+- language
+- currency

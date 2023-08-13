@@ -1,4 +1,3 @@
-
 export const en = {
     "app.name": "Uteefy Shop",
     "app.description": "",
@@ -19,6 +18,7 @@ export const en = {
     "items.tab_label": "Items",
     "items.tab_title": "Items",
     "items.add": "Add Item",
+    "items.create": "Create Item",
     "items.edit": "Edit Item",
     "items.delete": "Delete Item",
     "items.name": "Name",
@@ -54,6 +54,9 @@ export const en = {
     "discount_amount": "Discount Amount",
     "available": "Available",
     "more": "More",
+    "capture": "Capture",
+    "choose": "Choose",
+    "media": "Media",
 
     "tax": "Tax",
     "tax.percent": "Tax Percent",
@@ -75,4 +78,19 @@ export const en = {
     "total.cost": "Total Cost",
     "total.discount": "Total Discount",
 
+    "product": "Product",
+    "product.title": "Product title",
+    "product.description": "Product description",
+    "product.price": "Price",
+    "product.quantity": "Quantity",
+    "product.discount": "Discount",
+    "product.discount_percent": "Discount Percent",
+    "product.discount_amount": "Discount Amount",
+    "product.options": "Options",
+    "product.options.title": "Options title",
+    "product.options.description": "Add options to your product to allow customers to choose from a list of options to customize their product.",
+
+    "product.category": "Category",
+    "product.category.title": "Category title",
+    "product.category.description": "Category description",
 }

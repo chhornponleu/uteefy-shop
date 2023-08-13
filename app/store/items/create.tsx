@@ -1,9 +1,10 @@
 import { AntDesign, MaterialIcons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useTheme } from '@react-navigation/native';
+import { MediaTypeOptions, launchImageLibraryAsync } from "expo-image-picker";
 import { Stack } from "expo-router";
-import { KeyboardAvoidingView, Platform, Pressable, TextInput } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
+import { Pressable } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 import { colors } from "../../../commons/colors";
@@ -15,71 +16,10 @@ import { Text } from "../../../components/typo";
 import { TextI18n } from "../../../components/typo/TextI18n";
 import useNavigationBackConfirmation from "../../../hooks/useNavigationBackConfirmation";
 import { useToggle } from "../../../hooks/useToggle";
+import { useI18nMany } from "../../../libs/i18n/useI18n";
+import { DraftItemData } from "../../../types/item";
 
 type Props = {};
-
-
-type DescriptionText = {
-    type: 'text';
-    content: string;
-    size?: number;
-};
-type DescriptionImage = {
-    type: 'image';
-    uri: string;
-    mime: string;
-    width?: number;
-    height?: number;
-};
-type MediaImage = {
-    type: 'image';
-    uri: string;
-    mime: string;
-    width: number;
-    height: number;
-};
-type MediaVideo = {
-    type: 'video';
-    uri: string;
-    mime: string;
-    width: number;
-    height: number;
-    duration?: number;
-};
-
-type Media = MediaImage | MediaVideo;
-type Description = DescriptionText | DescriptionImage;
-
-type Inventory = {
-    sku?: string;
-    barcode?: string;
-    quantity?: number;
-    track: boolean;
-}
-
-type Variant = {
-    name: string;
-    description: string;
-    price: number;
-    quantity?: number;
-    inventory?: Inventory;
-    media?: Media[];
-}
-
-type Option = {
-    name: string;
-    description: string;
-    variants: Variant[];
-}
-
-type DraftItemData = {
-    title: string;
-    description: Description[];
-    media: Media[];
-    price: number;
-    quantity?: number;
-    options: Option[]
-}
 
 interface DraftItemProps {
     data: DraftItemData;
@@ -91,10 +31,7 @@ const useDraftItem = create(
         (set, get) => ({
             data: {
                 title: 'Ice Capuchino',
-                description: [
-                    { type: 'text', content: 'This is a description', size: 16 },
-                    { type: 'image', uri: 'https://picsum.photos/200/300', mime: 'image/jpeg', width: 200, height: 300 },
-                ],
+                description: 'This is a description',
                 media: [
                     { type: 'image', uri: 'https://picsum.photos/200/300', mime: 'image/jpeg', width: 200, height: 300 },
                     { type: 'image', uri: 'https://picsum.photos/200/300', mime: 'image/jpeg', width: 200, height: 300 },
@@ -157,6 +94,7 @@ const variants = [
     {
         name: 'Red',
         description: '',
+        price: 10,
         required: true,
         choices: [
             {
@@ -185,6 +123,7 @@ const variants = [
                     },
                 ]
             },
+
         ]
     },
 ]
@@ -195,174 +134,188 @@ export default function StoreItems({ }: Props) {
     const theme = useTheme()
     const form = useDraftItem();
 
-    const [showInventoryDetail, toggleShowingInventory] = useToggle(true)
+    const [showInventoryDetail, toggleShowingInventory] = useToggle(true);
+
+    function handleSelectPicture() {
+        launchImageLibraryAsync({
+            mediaTypes: MediaTypeOptions.All,
+            allowsEditing: true,
+            videoMaxDuration: 60,
+            quality: 0.8,
+            base64: false,
+
+        })
+    }
+
+    const trans = useI18nMany({
+        'product': undefined,
+        'product.title': {},
+        'product.description': {},
+    })
 
     return (
         <Page>
-            <KeyboardAvoidingView
-                style={{ flex: 1 }}
-                behavior={Platform.OS === "ios" ? "padding" : "height"}
-            >
-                <ScrollView
-                    // automaticallyAdjustKeyboardInsets
-                    contentInsetAdjustmentBehavior="automatic"
-                    contentContainerStyle={{ paddingBottom: 32 }}
-                >
-                    <Stack.Screen options={{
-                        headerRight: ({ tintColor }) => (
-                            <Pressable
-                                onPress={() => {
-                                    console.log('pressed')
-                                }}
-                                style={{ marginRight: 16 }}>
-                                <TextI18n code="save" size={16} color={colors.gray[400]} />
+            <KeyboardAwareScrollView
+                keyboardDismissMode="interactive"
+                contentOffset={{ y: 10, x: 0 }}>
+
+                <Stack.Screen options={{
+                    headerRight: ({ tintColor }) => (
+                        <Pressable
+                            onPress={() => {
+                                console.log('pressed')
+                            }}
+                            style={{ marginRight: 16 }}>
+                            <TextI18n code="save" size={16} color={colors.gray[400]} />
+                        </Pressable>
+                    )
+                }} />
+
+                <Card>
+                    <CardHeader title={<TextI18n code="media" />} />
+                    <Box row columnGap={16}>
+                        <CardContent
+                            center
+                            height={100} width={100}
+                            border={{ radius: 8, style: 'dashed', width: 1, color: theme.colors.border }}
+                        >
+                            <Pressable style={{ justifyContent: 'center', alignItems: 'center' }}>
+                                <MaterialIcons name="add-a-photo" size={24} color={theme.colors.text} />
+                                <Text mt={16} color={colors.blue['400']}>Capture</Text>
                             </Pressable>
-                        )
-                    }} />
-                    <Card>
-                        <CardHeader title="" subTitle="Product title" />
-                        <CardContent
-                            border={{ radius: 8, style: 'dashed', width: 1, color: theme.colors.border }}
-                        >
-                            <TextInput
-                                value={form.data.title || ''}
-                                onChangeText={(text) => {
-                                    form.data.title = text
-                                    form.update(form.data)
-                                }}
-                                style={{ flex: 1, fontSize: 18, paddingHorizontal: 16, paddingBottom: 8 }}
-                                placeholder="Product title"
-                                placeholderTextColor={colors.gray['400']}
-                                verticalAlign="middle"
-                                multiline
-                            />
                         </CardContent>
-                        <CardHeader title="" subTitle="Description" />
                         <CardContent
+                            center
+                            height={100} width={100}
                             border={{ radius: 8, style: 'dashed', width: 1, color: theme.colors.border }}
                         >
-                            <TextInput
-                                value={form.data.description?.[0]?.content || ''}
-                                onChangeText={(text) => {
-                                    form.data.description = [{ type: 'text', content: text }]
-                                    form.update(form.data)
-                                }}
-                                style={{ flex: 1, fontSize: 18, paddingHorizontal: 16, paddingBottom: 8 }}
-                                placeholder="More information about your product"
-                                placeholderTextColor={colors.gray['400']}
-                                verticalAlign="middle"
-                                multiline
-                            />
+                            <Pressable style={{ justifyContent: 'center', alignItems: 'center' }}>
+                                <MaterialIcons name="add-photo-alternate" size={24} color={theme.colors.text} />
+                                <Text mt={16} color={colors.blue['400']}>Choose </Text>
+                            </Pressable>
                         </CardContent>
-                    </Card>
+                    </Box>
+                </Card>
 
-                    <Card>
-                        <CardHeader title="Media" />
-                        <Box row columnGap={16}>
-                            <CardContent
-                                flex
-                                center
-                                height={100}
-                                border={{ radius: 8, style: 'dashed', width: 1, color: theme.colors.border }}
-                            >
-                                <Pressable style={{ justifyContent: 'center', alignItems: 'center' }}>
-                                    <MaterialIcons name="add-a-photo" size={24} color={theme.colors.text} />
-                                    <Text mt={16} color={colors.blue['400']}>Capture</Text>
-                                </Pressable>
-                            </CardContent>
-                            <CardContent
-                                flex
-                                center
-                                height={100}
-                                border={{ radius: 8, style: 'dashed', width: 1, color: theme.colors.border }}
-                            >
-                                <Pressable style={{ justifyContent: 'center', alignItems: 'center' }}>
-                                    <MaterialIcons name="add-photo-alternate" size={24} color={theme.colors.text} />
-                                    <Text mt={16} color={colors.blue['400']}>Choose </Text>
-                                </Pressable>
-                            </CardContent>
-                        </Box>
-                    </Card>
+                <Card>
+                    <CardHeader title={<TextI18n code="product" />} />
+                    <Input
+                        label={trans["product.title"]}
+                        value={form.data.title || ''}
+                        wrapperProps={{ border: { style: 'dashed' } }}
+                        size="lg"
+                        onChangeText={(text) => {
+                            form.data.title = text
+                            form.update(form.data)
+                        }}
+                    />
+                    <Input
+                        label={trans["product.description"]}
+                        value={form.data.description || ''}
+                        onChangeText={(text) => {
+                            form.data.description = text
+                            form.update(form.data)
+                        }}
+                        multiline
+                        numberOfLines={3}
+                        wrapperProps={{ border: { style: 'dashed' }, maxH: 120 }}
+                        size="lg"
+                    />
+                </Card>
 
-                    <Card>
-                        <CardHeader
-                            title="Inventory"
-                            right={(
-                                <Box row>
-                                    <Pressable onPress={toggleShowingInventory}>
-                                        <TextI18n code="more" color={colors.blue[400]} />
-                                    </Pressable>
-                                </Box>
-                            )}
-                        />
-                        <CardContent
-                            p={16}
-                            border={{ radius: 8, style: 'dashed', width: 1, color: theme.colors.border }}
-                        >
-                            <Box row justify="space-between">
-                                <TextI18n code="available" />
-                                <Box row items="center">
-                                    <Pressable>
-                                        <AntDesign name="minus" size={22} color={theme.colors.text} />
-                                    </Pressable>
-                                    <Box minW={40}>
-                                        <Text align="center">{form.quantity}</Text>
-                                    </Box>
-                                    <Pressable>
-                                        <AntDesign name="plus" size={20} color={theme.colors.text} />
-                                    </Pressable>
-                                </Box>
+                <Card>
+                    <CardHeader
+                        title="Inventory"
+                        right={(
+                            <Box row>
+                                <Pressable onPress={toggleShowingInventory}>
+                                    <TextI18n code="more" color={colors.blue[400]} />
+                                </Pressable>
                             </Box>
-                            {showInventoryDetail && (
-                                <Box mt={16}>
-                                    <Box  >
-                                        <Input
-                                            placeholder="SKU (Stock Keeping Unit)"
-                                        />
-                                    </Box>
-                                    <Box>
-                                        <Input
-                                            placeholder="Barcode (ISBN, UPC, GTIN, etc.)"
-                                        />
-                                    </Box>
-                                </Box>
-                            )}
-                        </CardContent>
-                    </Card>
-
-                    <Card>
-                        <CardHeader
-                            title="Options"
-                            right={(
-                                <Box row>
-                                    <Pressable onPress={toggleShowingInventory}>
-                                        <TextI18n code="more" color={colors.blue[400]} />
-                                    </Pressable>
-                                </Box>
-                            )}
-                        />
-                        <CardContent
-                            p={16}
-                            border={{ radius: 8, style: 'dashed', width: 1, color: theme.colors.border }}
-                        >
-                            <Box rowGap={8}>
-                                <Text>
-                                    Add options to allow customers to choose variants of your product.
-                                </Text>
-                                <Button
-                                    size="sm"
-                                    radius="sm"
-                                    alignSelf="center"
-                                    variant="default"
+                        )}
+                    />
+                    <CardContent
+                        p={16}
+                        border={{ radius: 8, style: 'dashed', width: 1, color: theme.colors.border }}
+                    >
+                        <Box row justify="space-between">
+                            <TextI18n code="available" />
+                            <Box row items="center">
+                                <Pressable
+                                    hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+                                    onPress={() => {
+                                        if (form.data.quantity > 0) {
+                                            form.data.quantity--;
+                                            form.update(form.data)
+                                        }
+                                    }}
                                 >
-                                    Add options
-                                </Button>
+                                    <AntDesign
+                                        size={22}
+                                        name="minus"
+                                        color={theme.colors.text}
+                                        style={{ opacity: form.data.quantity > 0 ? 1 : 0.3, margin: 4, }}
+                                    />
+                                </Pressable>
+                                <Box minW={40}>
+                                    <Text align="center">{form.data.quantity}</Text>
+                                </Box>
+                                <Pressable
+                                    hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+                                    onPress={() => {
+                                        form.data.quantity++;
+                                        form.update(form.data)
+                                    }}
+                                >
+                                    <AntDesign name="plus" size={20} style={{ margin: 4 }} color={theme.colors.text} />
+                                </Pressable>
                             </Box>
-                        </CardContent>
-                    </Card>
+                        </Box>
+                        {showInventoryDetail && (
+                            <Box mt={16}>
+                                <Box  >
+                                    <Input placeholder="SKU (Stock Keeping Unit)" />
+                                </Box>
+                                <Box>
+                                    <Input placeholder="Barcode (ISBN, UPC, GTIN, etc.)" />
+                                </Box>
+                            </Box>
+                        )}
+                    </CardContent>
+                </Card>
 
-                </ScrollView>
-            </KeyboardAvoidingView>
+                <Card>
+                    <CardHeader
+                        title="Options"
+                        right={(
+                            <Box row>
+                                <Pressable onPress={toggleShowingInventory}>
+                                    <TextI18n code="more" color={colors.blue[400]} />
+                                </Pressable>
+                            </Box>
+                        )}
+                    />
+                    <CardContent
+                        p={16}
+                        border={{ radius: 8, style: 'dashed', width: 1, color: theme.colors.border }}
+                    >
+                        <Box rowGap={8}>
+                            <Text>
+                                Add options to allow customers to choose variants of your product.
+                            </Text>
+                            <Button
+                                size="sm"
+                                radius="sm"
+                                alignSelf="center"
+                                variant="default"
+                            >
+                                Add options
+                            </Button>
+                        </Box>
+                    </CardContent>
+                </Card>
+
+            </KeyboardAwareScrollView>
         </Page>
     )
 }

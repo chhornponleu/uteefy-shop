@@ -18,6 +18,7 @@ export const km = {
     "items.tab_label": "ទំនិញ",
     "items.tab_title": "ទំនិញ",
     "items.add": "បន្ថែមទំនិញ",
+    "items.create": "បង្កើតទំនិញ",
     "items.edit": "កែប្រែទំនិញ",
     "items.delete": "លុបទំនិញ",
     "items.name": "ឈ្មោះទំនិញ",
@@ -52,6 +53,9 @@ export const km = {
     "discount_percent": "បញ្ចុះតម្លៃ (%)",
     "available": "មានទំនិញ",
     "more": "ច្រើនទៀត",
+    "capture": "ថតរូប",
+    "choose": "ជ្រើសរើស",
+    "media": "ថតរូប",
 
     "tax": "ពន្ធ",
     "tax_percent": "ពន្ធ (%)",
@@ -72,4 +76,22 @@ export const km = {
     "total_profit": "ប្រាក់ចំណេញសរុប",
     "total_cost": "ថ្លៃដើមសរុប",
     "total_discount": "បញ្ចុះតម្លៃសរុប",
+
+    "product": "ទំនិញ",
+    "product.title": "ឈ្មោះទំនិញ",
+    "product.name": "ឈ្មោះទំនិញ",
+    "product.description": "ការពិពណ៌នា",
+    "product.price": "តម្លៃ",
+    "product.quantity": "បរិមាណ",
+    "product.discount": "បញ្ចុះតម្លៃ",
+    "product.discount_percent": "បញ្ចុះតម្លៃ (%)",
+    "product.discount_amount": "បញ្ចុះតម្លៃ (៛)",
+    "product.options": "ជម្រើស",
+    "product.options.title": "ឈ្មោះជម្រើស",
+    "product.options.description": "ការពិពណ៌នា",
+
+    "product.category": "ប្រភេទទំនិញ",
+    "product.category.title": "ឈ្មោះប្រភេទទំនិញ",
+    "product.category.description": "ការពិពណ៌នា",
+
 }

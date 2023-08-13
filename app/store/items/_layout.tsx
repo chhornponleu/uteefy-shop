@@ -47,11 +47,10 @@ export default function StoreItemsLayout({ }: Props) {
                 name="create"
                 options={{
                     title: t['items.add'],
-                    gestureDirection: 'vertical',
-                    presentation: 'modal',
-                    animationDuration: 50,
-                    animation: 'fade_from_bottom',
-                    fullScreenGestureEnabled: false,
+                    // gestureDirection: 'vertical',
+                    // presentation: 'fullScreenModal',
+                    // animationDuration: 50,
+                    // fullScreenGestureEnabled: false,
                     headerLeft: ({ tintColor }) => (
                         <Pressable
                             hitSlop={{ left: 15, top: 10, right: 15, bottom: 10 }}
