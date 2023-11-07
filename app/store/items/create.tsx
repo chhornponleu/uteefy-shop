@@ -273,7 +273,7 @@ export default function StoreItems({ }: Props) {
                         </Box>
                         {showInventoryDetail && (
                             <Box mt={16}>
-                                <Box  >
+                                <Box>
                                     <Input placeholder="SKU (Stock Keeping Unit)" />
                                 </Box>
                                 <Box>
@@ -289,8 +289,8 @@ export default function StoreItems({ }: Props) {
                         title="Options"
                         right={(
                             <Box row>
-                                <Pressable onPress={toggleShowingInventory}>
-                                    <TextI18n code="more" color={colors.blue[400]} />
+                                <Pressable>
+                                    <AntDesign name="plus" size={22} />
                                 </Pressable>
                             </Box>
                         )}
@@ -299,7 +299,7 @@ export default function StoreItems({ }: Props) {
                         p={16}
                         border={{ radius: 8, style: 'dashed', width: 1, color: theme.colors.border }}
                     >
-                        <Box rowGap={8}>
+                        {/* <Box rowGap={8}>
                             <Text>
                                 Add options to allow customers to choose variants of your product.
                             </Text>
@@ -311,6 +311,34 @@ export default function StoreItems({ }: Props) {
                             >
                                 Add options
                             </Button>
+                        </Box> */}
+                        <Box>
+                            <Input
+                                label="Name"
+                            />
+                            <Input
+                                label="Description"
+                            />
+                            <Text>Choices</Text>
+                            {[0, 2].map((i) => (
+                                <Box key={i}>
+                                    <Input
+                                        label="Name"
+
+                                    />
+                                    <Box row ml={16} columnGap={16}>
+                                        <Text>Selection:</Text>
+                                        <Input
+                                            label="Min"
+                                            wrapperStyle={{ flex: 1, borderStyle: 'dotted', marginTop: 0 }}
+                                        />
+                                        <Input
+                                            label="Max"
+                                            wrapperStyle={{ flex: 1, borderStyle: 'dotted', marginTop: 0 }}
+                                        />
+                                    </Box>
+                                </Box>
+                            ))}
                         </Box>
                     </CardContent>
                 </Card>

@@ -31,7 +31,7 @@ export default function StoreHomeIndex({ }: Props) {
                         i18n.changeLanguage('km')
                     }}>Khmer</Button>
             </Box>
-            {new Array(5).fill(0).map((_, i) => (
+            {new Array(2).fill(0).map((_, i) => (
                 <Box key={i} row center columnGap={20}>
                     <Button size="sm"
                         onPress={() => {
