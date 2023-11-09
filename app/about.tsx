@@ -1,7 +1,6 @@
-import React from 'react'
+import React from 'react';
 import { Box } from "../components/containers";
 import { Text } from "../components/typo";
-import { router } from "expo-router";
 
 type Props = {};
 export default function AboutPage({ }: Props) {
