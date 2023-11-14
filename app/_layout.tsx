@@ -8,9 +8,9 @@ import {
 } from "@react-navigation/native";
 import { useMemo } from "react";
 import { useColorScheme } from "react-native";
-import { apoloClient } from "../api";
 import { LightTheme } from "../hooks/useTheme";
 import { I18nContextProvider } from "../libs/i18n";
+import { apoloClient } from "../commons/apolloClient";
 
 type Props = {};
 

@@ -17,6 +17,10 @@ import { auth } from "../libs/firebase";
 import { useMutation } from "@tanstack/react-query";
 import LoadingModal from "../components/indicator/LoadingModal";
 import { useAppContext } from "../context/app-context";
+import { useLoginWithEmailMutation, useSignUpEmailAvailable } from "../api/auth";
+import { useStoreListQuery } from "../api/store-apis";
+import { ApolloProvider } from "@apollo/client";
+import { apoloClient } from "../api";
 
 const packageJson = require('../package.json');
 
@@ -39,45 +43,71 @@ export default function IndexScreen() {
         )
     }
     return (
-        <Index />
+        <ApolloProvider client={apoloClient}>
+            <LoginScreenView />
+        </ApolloProvider>
     )
 }
 
-function Index() {
+const useLoginScreenViewController = () => {
+    const stores = useStoreListQuery();
+    console.log('stores', stores.data)
+
+    const evailable = useSignUpEmailAvailable({ email: 'chhornponleu@gmail.com' })
+    console.log('evailable', evailable.data)
+
+    const [
+        login,
+        { called, data, error, reset, loading }
+    ] = useLoginWithEmailMutation();
+
+    const handleLoginWithEmail = async (
+        data: { email: string, password: string }
+    ) => {
+        return login({ variables: { data } });
+    }
+
+    return {
+        handleLoginWithEmail,
+        reset,
+        error,
+        loading
+    }
+
+}
+
+function LoginScreenView() {
     const { styles } = useStyles();
     const insets = useSafeAreaInsets();
     const { width, height } = useWindowDimensions();
-    const router = useRouter()
+
+    const controller = useLoginScreenViewController();
 
     const [email, setEmail] = useState('chhornponleu@gmail.com');
     const [password, setPassword] = useState('123456');
     const emailRef = useRef<TextInput>(null);
     const passwordRef = useRef<TextInput>(null);
 
-    const { error, mutateAsync: signIn, isLoading } = useMutation(({ email, password }: { email: string; password: string }) => {
-        return signInWithEmailAndPassword(auth, email, password)
-    })
-
-    const rootNavigation = useRootNavigation();
-    const navigation = useNavigation()
-
-    console.log('rootNavigation', rootNavigation?.getState());
-    console.log('rootNavigation', rootNavigation?.getRootState());
-    console.log('navigation', navigation?.getState());
-
+    const [
+        login,
+        { called, data, error, reset, loading }
+    ] = useLoginWithEmailMutation();
 
     function handleLoginPress() {
-        if (!email) {
-            emailRef.current.focus()
-            return;
-        }
-        if (!password) {
-            passwordRef.current.focus()
-            return;
-        }
-        signIn({ email, password })
-            // .then(() => { router.push('/store/home/') })
-            .catch(e => { })
+        login({
+            variables: {
+                data: {
+                    email, password
+                }
+            },
+        }).then(resp => {
+            console.log(resp.data);
+        })
+        // controller.handleLoginWithEmail({
+        //     email, password
+        // }).then(resp => {
+        //     console.log(resp.data);
+        // })
     }
 
     return (
@@ -155,7 +185,7 @@ function Index() {
 
                 <Text align="center" size={12} color={colors.gray[400]}>v{packageJson.version}</Text>
             </Box>
-            <LoadingModal visible={isLoading} />
+            <LoadingModal visible={controller.loading} />
         </View >
     )
 }

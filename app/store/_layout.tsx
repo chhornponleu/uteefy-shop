@@ -4,6 +4,7 @@ import React from 'react';
 import { colors } from "../../commons/colors";
 import { useAppContext } from "../../context/app-context";
 import { useI18nMany } from "../../libs/i18n/useI18n";
+import StoreContextProvider from "../../context/store-context";
 
 type IconParams = { color?: string, focused?: boolean, size?: number }
 const tabIcons = {

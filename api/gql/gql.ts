@@ -14,6 +14,8 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  */
 const documents = {
     "\n    mutation LoginWithEmail($data: LoginWithEmailInput!) {\n        signInWithEmail(\n            data: $data\n        ) {\n            token\n        }\n    }\n": types.LoginWithEmailDocument,
+    "\n    query emailAvailable($data: String!) {\n        signUpWithEmailAvailable(data: {email: $data})\n    }\n": types.EmailAvailableDocument,
+    "\n    query StoreList($take: Float, $skip: Float, $cursor: StoreWhereUniqueInput) {\n        storeList(\n            take: $take,  \n            skip: $skip,\n            cursor: $cursor\n        ) {\n            id\n            name\n            address\n        }\n    }\n": types.StoreListDocument,
 };
 
 /**
@@ -34,6 +36,14 @@ export function gql(source: string): unknown;
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(source: "\n    mutation LoginWithEmail($data: LoginWithEmailInput!) {\n        signInWithEmail(\n            data: $data\n        ) {\n            token\n        }\n    }\n"): (typeof documents)["\n    mutation LoginWithEmail($data: LoginWithEmailInput!) {\n        signInWithEmail(\n            data: $data\n        ) {\n            token\n        }\n    }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n    query emailAvailable($data: String!) {\n        signUpWithEmailAvailable(data: {email: $data})\n    }\n"): (typeof documents)["\n    query emailAvailable($data: String!) {\n        signUpWithEmailAvailable(data: {email: $data})\n    }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n    query StoreList($take: Float, $skip: Float, $cursor: StoreWhereUniqueInput) {\n        storeList(\n            take: $take,  \n            skip: $skip,\n            cursor: $cursor\n        ) {\n            id\n            name\n            address\n        }\n    }\n"): (typeof documents)["\n    query StoreList($take: Float, $skip: Float, $cursor: StoreWhereUniqueInput) {\n        storeList(\n            take: $take,  \n            skip: $skip,\n            cursor: $cursor\n        ) {\n            id\n            name\n            address\n        }\n    }\n"];
 
 export function gql(source: string) {
   return (documents as any)[source] ?? {};

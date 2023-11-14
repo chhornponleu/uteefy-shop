@@ -10,7 +10,7 @@ const AuthContext = React.createContext<AthProps>({
 });
 
 export const AuthProvider = ({ children }: any) => {
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState<AthProps>(null);
 
     useEffect(() => {
         const user = localStorage.getItem('user');
@@ -19,6 +19,11 @@ export const AuthProvider = ({ children }: any) => {
             setUser(JSON.parse(user));
         }
     }, [])
+
+
+    function setAuth() {
+
+    }
 
     return (
         <AuthContext.Provider value={{ user }}>

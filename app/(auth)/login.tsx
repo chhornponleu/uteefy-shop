@@ -5,80 +5,58 @@ import { Alert, Button, TextInput } from "react-native";
 import { sendEmailVerification, signInWithEmailAndPassword } from "firebase/auth/react-native";
 import { Box } from "../../components/containers";
 import { auth } from "../../libs/firebase";
+import { useLoginWithEmailMutation } from "../../api/auth";
 
 type Props = {};
-export default function Login({ }: Props) {
-    const route = useRouter();
-    const naviagtion = useRootNavigation();
-    const nav = useNavigation();
-    const [email] = useState('chhornponleu@gmail.com');
 
-    function login() {
-        signInWithEmailAndPassword(auth, email, '123456')
-            .then((userCredential) => {
-                const user = userCredential.user;
-                console.log('success', user);
-                if (user.emailVerified) {
-                    route.replace('/store-list');
-                }
-                else {
-                    sendEmailVerification(user, { url: 'https://auth.uteefy.com', handleCodeInApp: true })
-                        .then(value => {
-                            console.log('sendEmailVerification success', value);
-                        }).catch(error => {
-                            console.log('sendEmailVerification fail', error);
-                        });
-                }
-            })
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                console.log(errorCode, errorMessage);
-                // ..
-                if (errorCode === 'auth/user-not-found') {
-                    Alert.alert('Error', 'User not found!');
-                }
-                if (errorCode === 'auth/wrong-password') {
-                    Alert.alert('Error', 'Wrong password!');
-                }
-            });
+function useLoginControler() {
+
+    const [login, { called, data, error, reset, loading }] = useLoginWithEmailMutation();
+
+    const handleLoginWithEmail = async (
+        data: { email: string, password: string }
+    ) => {
+        return login({ variables: { data } });
     }
 
+    return {
+        handleLoginWithEmail,
+        reset,
+        error,
+        loading
+    }
+}
+
+export default function Login({ }: Props) {
+    const {
+        error,
+        handleLoginWithEmail,
+        loading,
+        reset,
+    } = useLoginControler();
+
+    // const route = useRouter();
+    // const naviagtion = useRootNavigation();
+    // const nav = useNavigation();
+    const [email] = useState('chhornponleu@gmail.com');
+    const [password, setPwd] = useState('123456');
+
     function register() {
-        // if (!email) {
-        //     alert('Please enter your email');
-        //     return;
-        // }
-        // createUserWithEmailAndPassword(auth, email, '123456')
-        //     .then((userCredential) => {
-        //         // Signed in 
-        //         const user = userCredential.user;
-        //         // ...
-        //     })
-        //     .catch((error) => {
-        //         const errorCode = error.code;
-        //         const errorMessage = error.message;
-        //         // ..
-        //         if (errorCode === 'auth/email-already-in-use') {
-        //             Alert.alert('Error', 'That email address is already in use!');
-        //         }
-        //         if (errorCode === 'auth/invalid-email') {
-        //             Alert.alert('Error', 'That email address is invalid!');
-        //         }
-        //         if (errorCode === 'auth/weak-password') {
-        //             Alert.alert('Error', 'That password is too weak!');
-        //         }
-        //         console.log(error);
-        //     });
+        alert('register not implemented yet')
     }
 
 
     return (
         <Box>
-            <Stack.Screen options={{ title: 'Login', }} />
+            {/* <Stack.Screen options={{ title: 'Login', }} />
             <TextInput placeholder="Email" value={email} />
             <Button title="Register" onPress={register} />
-            <Button title="Login Now" onPress={login} />
+            <Button title="Login Now" onPress={() => {
+                handleLoginWithEmail({
+                    email,
+                    password
+                })
+            }} /> */}
         </Box>
     )
 }

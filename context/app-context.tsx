@@ -6,6 +6,7 @@ import { Store } from "../data/types";
 import { auth } from "../libs/firebase";
 import { StackActions } from '@react-navigation/native'
 import { i18n } from "../libs/i18n";
+import StoreContextProvider from "./store-context";
 
 interface IAppContext {
     user?: User;
@@ -59,7 +60,9 @@ export function AppContextProvider(props) {
                 ...appState,
             }}
         >
-            {props.children}
+            <StoreContextProvider>
+                {props.children}
+            </StoreContextProvider>
         </AppContext.Provider>
     );
 }
