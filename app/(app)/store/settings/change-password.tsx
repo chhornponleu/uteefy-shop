@@ -2,10 +2,10 @@ import { useTheme } from '@react-navigation/native';
 import { Stack } from "expo-router";
 import { TouchableOpacity } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
-import { colors } from "../../../commons/colors";
-import { Box, Card, CardContent } from "../../../components/containers";
-import Page from "../../../components/containers/Page";
-import { Text } from "../../../components/typo";
+import { colors } from "../../../../commons/colors";
+import { Box, Card, CardContent } from "../../../../components/containers";
+import Page from "../../../../components/containers/Page";
+import { Text } from "../../../../components/typo";
 
 function Field(props: { title: string; }) {
     return (

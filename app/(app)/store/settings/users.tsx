@@ -3,9 +3,9 @@ import { Stack } from "expo-router";
 import React, { useState } from 'react';
 import { TouchableOpacity } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
-import { Box, Card, CardContent, CardHeader } from "../../../components/containers";
-import { colors } from "../../../commons/colors";
-import { Text } from "../../../components/typo";
+import { Box, Card, CardContent, CardHeader } from "../../../../components/containers";
+import { colors } from "../../../../commons/colors";
+import { Text } from "../../../../components/typo";
 
 type Props = {};
 

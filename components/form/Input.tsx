@@ -1,10 +1,10 @@
 import React from 'react';
 import { Platform, TextInputProps, ViewStyle } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
-import { Box, BoxProps } from "../containers";
-import { createStyleHook } from "../../hooks/createStyleHook";
 import { colors } from "../../commons/colors";
+import { createStyleHook } from "../../hooks/createStyleHook";
 import useTheme from "../../hooks/useTheme";
+import { Box, BoxProps } from "../containers";
 import { Text } from "../typo";
 
 const Sizes = {
@@ -43,7 +43,7 @@ const useStyle = createStyleHook(() => ({
     }
 }))
 
-function Input({
+export default React.forwardRef<TextInput, Props>(({
     left,
     right,
     style,
@@ -58,7 +58,7 @@ function Input({
     onBlur,
     onFocus,
     ...props
-}: Props, ref) {
+}, ref) => {
 
     const theme = useTheme();
     const { styles } = useStyle();
@@ -127,6 +127,4 @@ function Input({
 
         </Box>
     )
-}
-
-export default React.forwardRef<TextInput, Props>(Input)
+})

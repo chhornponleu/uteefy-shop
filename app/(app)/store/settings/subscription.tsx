@@ -3,9 +3,9 @@ import { Stack } from "expo-router";
 import React from 'react';
 import { ScrollView, TouchableOpacity } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { colors } from "../../../commons/colors";
-import { Text } from "../../../components/typo";
-import { Box, Card, CardContent, CardHeader } from "../../../components/containers";
+import { colors } from "../../../../commons/colors";
+import { Text } from "../../../../components/typo";
+import { Box, Card, CardContent, CardHeader } from "../../../../components/containers";
 
 type Props = {};
 const pencilIcon = (

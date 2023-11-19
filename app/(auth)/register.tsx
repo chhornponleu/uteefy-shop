@@ -88,7 +88,7 @@ export default function Register({ }: Props) {
                 <Text size={24} mb={32}>Create a new account</Text>
                 <Box>
                     <Input
-                        ref={emailRef}
+                        // ref={emailRef}
                         value={email}
                         onChangeText={setEmail}
                         placeholder="Enter your email"
@@ -97,7 +97,7 @@ export default function Register({ }: Props) {
                         style={styles.input}
                     />
                     <Input
-                        ref={passwordRef}
+                        // ref={passwordRef}
                         value={password}
                         onChangeText={setPassword}
                         placeholder="Password"
@@ -107,7 +107,7 @@ export default function Register({ }: Props) {
                     />
                     {password ? (
                         <Input
-                            ref={passwordConfirmationRef}
+                            // ref={passwordConfirmationRef}
                             value={passwordConfirmation}
                             onChangeText={setPasswordConfirmation}
                             placeholder="Confirm your password"

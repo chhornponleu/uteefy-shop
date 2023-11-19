@@ -5,9 +5,9 @@ import React, { useState } from 'react';
 import { ScrollView, TouchableOpacity } from "react-native";
 import ReactNativeModal from "react-native-modal";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { colors } from "../../../commons/colors";
-import { Box, Card, CardContent, CardHeader } from "../../../components/containers";
-import { Text } from "../../../components/typo";
+import { colors } from "../../../../commons/colors";
+import { Box, Card, CardContent, CardHeader } from "../../../../components/containers";
+import { Text } from "../../../../components/typo";
 
 type Props = {};
 const pencilIcon = (

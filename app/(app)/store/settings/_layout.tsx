@@ -1,6 +1,6 @@
 import { Stack } from "expo-router";
-import { colors } from "../../../commons/colors";
-import { defaultStackOptions } from "../../../commons/navigation";
+import { colors } from "../../../../commons/colors";
+import { defaultStackOptions } from "../../../../commons/navigation";
 
 export default function StoreSettingsLayout() {
     return (

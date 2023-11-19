@@ -2,7 +2,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { Stack } from "expo-router";
 import React from 'react'
 import { TouchableOpacity } from "react-native";
-import { Box, Card, CardHeader } from "../../../components/containers";
+import { Box, Card, CardHeader } from "../../../../components/containers";
 
 type Props = {};
 export default function QRCodes({ }: Props) {

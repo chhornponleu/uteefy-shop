@@ -2,10 +2,10 @@ import { Ionicons } from "@expo/vector-icons";
 import { Stack, useRouter } from "expo-router";
 import React from 'react';
 import { Platform, Pressable } from "react-native";
-import { colors } from "../../../commons/colors";
-import { Box } from "../../../components/containers";
-import { TextI18n } from "../../../components/typo/TextI18n";
-import { useI18nMany } from "../../../libs/i18n/useI18n";
+import { colors } from "../../../../commons/colors";
+import { Box } from "../../../../components/containers";
+import { TextI18n } from "../../../../components/typo/TextI18n";
+import { useI18nMany } from "../../../../libs/i18n/useI18n";
 
 type Props = {};
 const codes = {

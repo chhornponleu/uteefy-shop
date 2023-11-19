@@ -8,19 +8,20 @@ import {
 } from "@react-navigation/native";
 import { useMemo } from "react";
 import { useColorScheme } from "react-native";
+import { apoloClient } from "../commons/apolloClient";
 import { LightTheme } from "../hooks/useTheme";
 import { I18nContextProvider } from "../libs/i18n";
-import { apoloClient } from "../commons/apolloClient";
-
-type Props = {};
 
 const client = new QueryClient()
 
-export default function RootLayout({ }: Props) {
+export default function RootLayout() {
     const theme = useColorScheme();
     const themeColors = useMemo(() => {
         return LightTheme;
     }, [theme])
+
+    console.log('----> _layout.tsx');
+
     return (
         <QueryClientProvider client={client}>
             <ApolloProvider client={apoloClient}>
@@ -33,5 +34,6 @@ export default function RootLayout({ }: Props) {
                 </I18nContextProvider>
             </ApolloProvider>
         </QueryClientProvider>
+
     )
 }

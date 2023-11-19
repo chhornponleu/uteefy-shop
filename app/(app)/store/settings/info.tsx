@@ -2,9 +2,9 @@ import { MaterialCommunityIcons, SimpleLineIcons } from "@expo/vector-icons";
 import { Stack } from "expo-router";
 import React from 'react'
 import { ScrollView, TouchableOpacity } from "react-native";
-import { Text } from "../../../components/typo";
-import { colors } from "../../../commons/colors";
-import { Box, Card, CardContent, CardHeader } from "../../../components/containers";
+import { Text } from "../../../../components/typo";
+import { colors } from "../../../../commons/colors";
+import { Box, Card, CardContent, CardHeader } from "../../../../components/containers";
 
 type Props = {};
 const pencilIcon = (

@@ -1,6 +1,6 @@
 import { Stack } from "expo-router";
 import React from 'react'
-import { TextI18n } from "../../../components/typo/TextI18n";
+import { TextI18n } from "../../../../components/typo/TextI18n";
 
 type Props = {};
 export default function StoreHomeLayout({ }: Props) {

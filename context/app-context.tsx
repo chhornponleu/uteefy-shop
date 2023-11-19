@@ -1,12 +1,11 @@
 
-import { router, useNavigation, useRootNavigation, useRootNavigationState, useSegments } from "expo-router";
 import { User } from "firebase/auth/react-native";
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, { useLayoutEffect } from "react";
 import { Store } from "../data/types";
 import { auth } from "../libs/firebase";
-import { StackActions } from '@react-navigation/native'
 import { i18n } from "../libs/i18n";
 import StoreContextProvider from "./store-context";
+import { AuthProvider } from "./auth-context";
 
 interface IAppContext {
     user?: User;
@@ -37,58 +36,29 @@ export function AppContextProvider(props) {
             setAppState(prev => ({
                 ...prev,
                 locale,
-            }))
-        })
-        auth.onAuthStateChanged((user) => {
-            console.log('onAuthStateChanged', user);
-
-            setAppState(prev => ({
-                ...prev,
                 ready: true,
-                user,
             }))
         })
+        setAppState(prev => ({
+            ...prev,
+            ready: true
+        }))
     }, [])
+
+    console.log('appState', appState);
 
     if (!appState.ready) {
         return null;
     }
 
     return (
-        <AppContext.Provider
-            value={{
-                ...appState,
-            }}
-        >
-            <StoreContextProvider>
-                {props.children}
-            </StoreContextProvider>
+        <AppContext.Provider value={appState}>
+            <AuthProvider>
+                <StoreContextProvider>
+                    {props.children}
+                </StoreContextProvider>
+            </AuthProvider>
         </AppContext.Provider>
     );
 }
 
-
-
-// interface AppState {
-//     user?: User;
-//     store?: Store;
-//     locale: string;
-//     ready: boolean;
-// }
-
-// const useAppState = create<AppState>()(
-//     persist(
-//         (set, get) => ({
-//             user: undefined,
-//             store: undefined,
-//             locale: 'en',
-//             setUser: (user: User) => set({ user }),
-//             setStore: (store: Store) => set({ store }),
-//             setLocale: (locale: string) => set({ locale }),
-//         }),
-//         {
-//             name: 'app-state',
-//             storage: createJSONStorage(() => AsyncStorage),
-//         }
-//     )
-// );

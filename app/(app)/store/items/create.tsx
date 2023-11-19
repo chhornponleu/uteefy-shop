@@ -7,17 +7,17 @@ import { Pressable } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
-import { colors } from "../../../commons/colors";
-import { Button } from "../../../components/buttons";
-import { Box, Card, CardContent, CardHeader } from "../../../components/containers";
-import Page from "../../../components/containers/Page";
-import Input from "../../../components/form/Input";
-import { Text } from "../../../components/typo";
-import { TextI18n } from "../../../components/typo/TextI18n";
-import useNavigationBackConfirmation from "../../../hooks/useNavigationBackConfirmation";
-import { useToggle } from "../../../hooks/useToggle";
-import { useI18nMany } from "../../../libs/i18n/useI18n";
-import { DraftItemData } from "../../../types/item";
+import { colors } from "../../../../commons/colors";
+import { Button } from "../../../../components/buttons";
+import { Box, Card, CardContent, CardHeader } from "../../../../components/containers";
+import Page from "../../../../components/containers/Page";
+import Input from "../../../../components/form/Input";
+import { Text } from "../../../../components/typo";
+import { TextI18n } from "../../../../components/typo/TextI18n";
+import useNavigationBackConfirmation from "../../../../hooks/useNavigationBackConfirmation";
+import { useToggle } from "../../../../hooks/useToggle";
+import { useI18nMany } from "../../../../libs/i18n/useI18n";
+import { DraftItemData } from "../../../../types/item";
 
 type Props = {};
 

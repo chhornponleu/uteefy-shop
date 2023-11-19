@@ -1,11 +1,11 @@
 import { useGlobalSearchParams, useRouter } from "expo-router";
 import React from 'react';
-import { Button } from "../../../components/buttons";
-import { Box } from "../../../components/containers";
-import { Text } from "../../../components/typo";
-import { auth } from "../../../libs/firebase";
-import { TextI18n } from "../../../components/typo/TextI18n";
-import { i18n } from "../../../libs/i18n";
+import { Button } from "../../../../components/buttons";
+import { Box } from "../../../../components/containers";
+import { Text } from "../../../../components/typo";
+import { auth } from "../../../../libs/firebase";
+import { TextI18n } from "../../../../components/typo/TextI18n";
+import { i18n } from "../../../../libs/i18n";
 
 type Props = {};
 export default function StoreHomeIndex({ }: Props) {

@@ -1,10 +1,10 @@
 import { AntDesign, Feather } from "@expo/vector-icons";
 import { Redirect, Tabs } from "expo-router";
 import React from 'react';
-import { colors } from "../../commons/colors";
-import { useAppContext } from "../../context/app-context";
-import { useI18nMany } from "../../libs/i18n/useI18n";
-import StoreContextProvider from "../../context/store-context";
+import { colors } from "../../../commons/colors";
+import { useAppContext } from "../../../context/app-context";
+import { useI18nMany } from "../../../libs/i18n/useI18n";
+import StoreContextProvider from "../../../context/store-context";
 
 type IconParams = { color?: string, focused?: boolean, size?: number }
 const tabIcons = {
@@ -24,18 +24,12 @@ const tabIcons = {
 }
 
 export default function StoreLayout() {
-    const { user, locale } = useAppContext();
     const t = useI18nMany({
         "home.tab_label": {},
         "orders.tab_label": {},
         "items.tab_label": {},
         "settings.tab_title": {},
     })
-    if (!user) {
-        return (
-            <Redirect href="/" />
-        )
-    }
     return (
         <Tabs
             backBehavior="initialRoute"

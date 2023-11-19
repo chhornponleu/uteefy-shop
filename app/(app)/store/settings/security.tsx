@@ -3,9 +3,9 @@ import { Stack } from "expo-router";
 import React from 'react';
 import { ScrollView, Switch } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Text } from "../../../components/typo";
-import { colors } from "../../../commons/colors";
-import { Box, Card, CardContent, CardHeader } from "../../../components/containers";
+import { Text } from "../../../../components/typo";
+import { colors } from "../../../../commons/colors";
+import { Box, Card, CardContent, CardHeader } from "../../../../components/containers";
 
 const pencilIcon = (
     <SimpleLineIcons name="pencil" size={16} color={colors.red['600']} style={{ marginRight: 16 }} />
