@@ -19,10 +19,7 @@ export default function AuthLayout() {
         )
     }
     return (
-        <Stack
-            screenOptions={{
-                ...defaultStackOptions
-            }}
+        <Stack screenOptions={defaultStackOptions}
         />
     )
 }
