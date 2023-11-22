@@ -3,7 +3,7 @@ import { collection, onSnapshot, query, where } from "firebase/firestore";
 import React from 'react';
 import { Box } from "../../components/containers";
 import { Text } from "../../components/typo";
-import { useAppContext } from "../../context/app-context";
+import { useAppContext } from "../../context/AppProvider";
 import { db } from "../../libs/firebase";
 
 type Props = {};

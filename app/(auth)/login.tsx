@@ -2,6 +2,7 @@ import { Pressable, ScrollView, TextInput, View, useWindowDimensions } from "rea
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Path, Svg } from 'react-native-svg';
 
+import { useMutation } from "@apollo/client";
 import { Link, Stack } from "expo-router";
 import { useRef, useState } from "react";
 import { colors } from "../../commons/colors";
@@ -10,8 +11,9 @@ import { Box, Card } from "../../components/containers";
 import Content from "../../components/containers/Content";
 import Input from "../../components/form/Input";
 import { Text } from "../../components/typo";
-import { useAuthLoginWithEmail } from "../../context/auth-context";
+import { useAuthToken } from "../../context/AppProvider";
 import { createStyleHook } from "../../hooks/createStyleHook";
+import { AuthLoginWithEmail_Mutation } from "../../services/auth.gql";
 
 const packageJson = require('../../package.json');
 
@@ -23,13 +25,18 @@ const useStyles = createStyleHook(({ height, width, theme }) => ({
 }))
 
 const useLoginScreenViewController = () => {
-
-    const [login, state] = useAuthLoginWithEmail();
+    const authToken = useAuthToken();
+    const [mutateLogin, state] = useMutation(AuthLoginWithEmail_Mutation);
 
     const handleLoginWithEmail = async (
         data: { email: string, password: string }
     ) => {
-        return login(data.email, data.password);
+        return mutateLogin({
+            variables: { data }
+        }).then(resp => {
+            authToken.setToken(resp.data?.signInWithEmail.token)
+            return resp;
+        });
     }
 
     return {

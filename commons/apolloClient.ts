@@ -1,5 +1,6 @@
 import { ApolloClient, ApolloLink, InMemoryCache, createHttpLink } from "@apollo/client";
-import { loadErrorMessages, loadDevMessages } from "@apollo/client/dev";
+import { loadDevMessages, loadErrorMessages } from "@apollo/client/dev";
+import { useAppContextStore, useAuthToken } from "../context/AppProvider";
 
 if (__DEV__) {  // Adds messages only in a dev environment
     loadDevMessages();
@@ -17,19 +18,17 @@ const logLink = new ApolloLink((operation, forward) => {
 });
 
 const authLink = new ApolloLink((operation, forward) => {
-    // Retrieve the authorization token from local storage.
-    // const token = localStorage.getItem('auth_token');
-
+    // Read token and locale from the store (of zustand)
+    const { token, locale } = useAppContextStore.getState()?.data || {};
     // Use the setContext method to set the HTTP headers.
     operation.setContext({
         ...operation?.getContext(),
         headers: {
-            // authorization: token ? `Bearer ${token}` : ''
-            authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbG5qMHp3NGwwMDAwdjYzMm1tYXpkNGJpIiwic2Vzc2lvbl9pZCI6ImNsbzlpanc0cTAwMDB2NjEyZGVwNHY1bXQiLCJpYXQiOjE2OTg0NjU1NzksImV4cCI6MTczMDAwMTU3OSwiaXNzIjoidXRlZWZ5LmNvbSJ9.7t4-LvpPr1FLguFjf2JWyIpmi6VNt-tVfYIyIEsLG7c",
+            'authorization': token ? `Bearer ${token}` : undefined,
+            'accept-language': locale || 'en',
             ...(operation?.getContext()?.headers || {}),
         }
     });
-
     // Call the next link in the middleware chain.
     return forward(operation);
 });

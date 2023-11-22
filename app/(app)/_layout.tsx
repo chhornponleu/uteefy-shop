@@ -1,31 +1,29 @@
 
-import { Redirect, Slot, useRootNavigationState, useRouter } from "expo-router";
-import { Text } from "react-native";
-import { useAuthState } from "../../context/auth-context";
+import { Redirect, Slot, useSegments } from "expo-router";
+import { useAuthToken } from "../../context/AppProvider";
 
 export default function AppLayout() {
-    const navigationsate = useRootNavigationState();
-    const router = useRouter()
-    const { token, ready } = useAuthState();
+    const segments = useSegments();
+    const { token } = useAuthToken()
 
-    console.log('----> (app)/_layout.tsx', { token, ready });
+    console.log('----> (app)/_layout.tsx', { token, segments });
 
-    if (!ready) {
-        return <Text>...</Text>;
-    }
-    if (!token && navigationsate?.routes?.[0]?.path !== "/") {
-        console.log('auth token => login', { token, ready });
+    if (!token && segments?.[0] === '(app)') {
+        console.log('auth token => login', { token });
         return (
             <Redirect href="/login" />
         )
     }
-    if (token && navigationsate?.routes?.[0]?.path === "/") {
-        console.log('auth token => storelist', { token, ready });
-        return (
-            <Redirect href="/store-list" />
-        )
-    }
-    console.log('auth token => slot', { token, ready });
+
+    // if (token && navigationsate?.routes?.[0]?.path === "/") {
+    //     console.log('auth token => storelist', { token });
+    //     return (
+    //         <Redirect href="/store-list" />
+    //     )
+    // }
+
+    // console.log('auth token => slot', { token });
+
     return (
         <Slot />
     )

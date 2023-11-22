@@ -1,19 +1,17 @@
-import { Redirect, Stack, useRootNavigationState } from "expo-router";
+import { Redirect, Stack } from "expo-router";
 import React from 'react';
 import { defaultStackOptions } from "../../commons/navigation";
-import { useAuthState } from "../../context/auth-context";
+import { useAuthToken } from "../../context/AppProvider";
 
 export const unstable_settings = {
 
 };
 
 export default function AuthLayout() {
-    const navigationsate = useRootNavigationState()
-    const { token } = useAuthState()
-    console.log('----> (auth)/_layout.tsx', navigationsate);
+    const { token } = useAuthToken()
+    console.log('----> (auth)/_layout.tsx', token);
     if (token) {
         console.log('you are already logged in');
-
         return (
             <Redirect href="/store-list" />
         )

@@ -80,7 +80,7 @@ type Border = {
     width?: ViewStyle['borderWidth'],
     color?: ViewStyle['borderColor'],
     style?: ViewStyle['borderStyle'],
-    radius?: ViewStyle['borderRadius']
+    radius?: ViewStyle['borderRadius'],
 }
 /**
  * The flattest props is more prioritized. 

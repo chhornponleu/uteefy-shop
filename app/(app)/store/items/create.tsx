@@ -16,8 +16,8 @@ import { Text } from "../../../../components/typo";
 import { TextI18n } from "../../../../components/typo/TextI18n";
 import useNavigationBackConfirmation from "../../../../hooks/useNavigationBackConfirmation";
 import { useToggle } from "../../../../hooks/useToggle";
-import { useI18nMany } from "../../../../libs/i18n/useI18n";
 import { DraftItemData } from "../../../../types/item";
+import { useI18nMany } from "../../../../libs/i18n/useI18n";
 
 type Props = {};
 

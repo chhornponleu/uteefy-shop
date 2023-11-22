@@ -1,21 +1,22 @@
-
-import { View } from "react-native";
-import { useAuthLoginWithEmail } from "../../context/auth-context";
+import React from 'react';
+import { Box } from "../../components/containers";
 import { Text } from "../../components/typo";
+import { useAppContext } from "../../context/AppProvider";
+import { useQuery } from "@apollo/client";
+import { StoreList_Query } from "../../services/store.gql";
 
+type Props = {};
 
-const useLoginScreenViewController = () => {
+export default function StoreList({ }: Props) {
+    const { user } = useAppContext()
+    const { data, loading, refetch } = useQuery(StoreList_Query)
 
-}
-
-export default function AppIndex() {
-
-    const contr = useLoginScreenViewController();
+    console.log('StoreList', { user, data, loading })
 
     return (
-        <View>
-            <Text>Hello world!</Text>
-        </View>
+        <Box flex>
+            <Text>Store List</Text>
+            <Text>{JSON.stringify(data, null, 2)}</Text>
+        </Box>
     )
-
 }

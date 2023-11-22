@@ -1,16 +1,16 @@
-import { useGlobalSearchParams, useRouter } from "expo-router";
+import { useGlobalSearchParams } from "expo-router";
 import React from 'react';
 import { Button } from "../../../../components/buttons";
 import { Box } from "../../../../components/containers";
 import { Text } from "../../../../components/typo";
-import { auth } from "../../../../libs/firebase";
 import { TextI18n } from "../../../../components/typo/TextI18n";
-import { i18n } from "../../../../libs/i18n";
+import { useLocale } from "../../../../context/AppProvider";
+import { auth } from "../../../../libs/firebase";
 
 type Props = {};
 export default function StoreHomeIndex({ }: Props) {
     const p = useGlobalSearchParams()
-    const router = useRouter()
+    const { setLocale } = useLocale()
     return (
         <Box flex mt={100} p={16}>
             <Text>Store Home</Text>
@@ -22,25 +22,33 @@ export default function StoreHomeIndex({ }: Props) {
             <TextI18n code="hello" />
 
             <Box row center columnGap={20}>
-                <Button size="sm"
+                <Button
+                    size="sm"
                     onPress={() => {
-                        i18n.changeLanguage('en')
-                    }}>English</Button>
-                <Button size="sm"
+                        setLocale('en')
+                    }}
+                >English</Button>
+                <Button
+                    size="sm"
                     onPress={() => {
-                        i18n.changeLanguage('km')
-                    }}>Khmer</Button>
+                        setLocale('km')
+                    }}
+                >Khmer</Button>
             </Box>
             {new Array(2).fill(0).map((_, i) => (
                 <Box key={i} row center columnGap={20}>
-                    <Button size="sm"
+                    <Button
+                        size="sm"
                         onPress={() => {
-                            i18n.changeLanguage('en')
-                        }}>English</Button>
-                    <Button size="sm"
+                            setLocale('en')
+                        }}
+                    >English</Button>
+                    <Button
+                        size="sm"
                         onPress={() => {
-                            i18n.changeLanguage('km')
-                        }}>Khmer</Button>
+                            setLocale('km')
+                        }}
+                    >Khmer</Button>
                 </Box>
             ))}
 

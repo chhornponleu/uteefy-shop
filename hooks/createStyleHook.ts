@@ -1,5 +1,4 @@
-import { ColorSchemeName, Platform, StyleProp, StyleSheet, useColorScheme, useWindowDimensions } from "react-native";
-import { useDeviceQuery } from "./useDeviceQuery";
+import { ColorSchemeName, StyleSheet, useColorScheme, useWindowDimensions } from "react-native";
 
 
 export { createStyleHook };
