@@ -4,7 +4,7 @@ import React from 'react';
 import { Box } from "../../components/containers";
 import { Text } from "../../components/typo";
 import { useAppContext } from "../../context/AppProvider";
-import { db } from "../../libs/firebase";
+import { db } from "../../../libs/firebase";
 
 type Props = {};
 

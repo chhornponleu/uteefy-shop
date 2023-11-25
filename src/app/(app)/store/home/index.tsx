@@ -4,19 +4,29 @@ import { Button } from "../../../../components/buttons";
 import { Box } from "../../../../components/containers";
 import { Text } from "../../../../components/typo";
 import { TextI18n } from "../../../../components/typo/TextI18n";
-import { useLocale } from "../../../../context/AppProvider";
-import { auth } from "../../../../libs/firebase";
+import { useAuthToken, useLocale, useUserInfo } from "../../../../context/AppProvider";
+import { useQuery } from "@apollo/client";
+import { StoreList_Query } from "../../../../services/store.gql";
 
 type Props = {};
 export default function StoreHomeIndex({ }: Props) {
     const p = useGlobalSearchParams()
     const { setLocale } = useLocale()
+    const authToken = useAuthToken();
+    const userInfo = useUserInfo()
+
+    const q = useQuery(StoreList_Query);
+
+    console.log('storelist', q.data);
+
+
     return (
         <Box flex mt={100} p={16}>
             <Text>Store Home</Text>
             <Text>{JSON.stringify(p)}</Text>
             <Button onPress={() => {
-                auth.signOut().then(() => { })
+                authToken.setToken(null)
+                userInfo.setUser(null);
             }}>Signout</Button>
 
             <TextI18n code="hello" />

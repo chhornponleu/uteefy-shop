@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { TranslationsKey, i18n } from ".";
-import { useLocale } from "../../context/AppProvider";
+import { useLocale } from "../context/AppProvider";
 
 export type UseI18nProps = {
     code: TranslationsKey;

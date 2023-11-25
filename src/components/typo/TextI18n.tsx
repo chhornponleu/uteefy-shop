@@ -1,4 +1,4 @@
-import { UseI18nProps, useI18n } from "../../libs/i18n/useI18n";
+import { UseI18nProps, useI18n } from "../../i18n/useI18n";
 import { Text, TextProps } from "./Text";
 
 type TextI18nProps = TextProps & UseI18nProps;

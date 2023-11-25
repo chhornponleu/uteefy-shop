@@ -12,7 +12,7 @@ import Content from "../../components/containers/Content";
 import Input from "../../components/form/Input";
 import { Text } from "../../components/typo";
 import { createStyleHook } from "../../hooks/createStyleHook";
-import { auth } from "../../libs/firebase";
+import { auth } from "../../../libs/firebase";
 
 type Props = {};
 const useStyles = createStyleHook(({ height, width, theme }) => ({

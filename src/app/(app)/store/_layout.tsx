@@ -2,7 +2,7 @@ import { AntDesign, Feather } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 import React from 'react';
 import { colors } from "../../../commons/colors";
-import { useI18nMany } from "../../../libs/i18n/useI18n";
+import { useI18nMany } from "../../../i18n/useI18n";
 
 type IconParams = { color?: string, focused?: boolean, size?: number }
 const tabIcons = {

@@ -5,7 +5,7 @@ import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 import { Store } from "../data/types";
 import { User } from "../services/gql/graphql";
-import { i18n } from "../libs/i18n";
+import { i18n } from "../i18n";
 
 interface IAppContextData {
     token?: string;

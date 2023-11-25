@@ -1,4 +1,4 @@
-import { en } from "../libs/i18n/locales/en";
+import { en } from "../src/i18n/locales/en";
 
 
 declare module 'i18next' {

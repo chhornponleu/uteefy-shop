@@ -15,7 +15,7 @@ import { useAuthToken } from "../../context/AppProvider";
 import { createStyleHook } from "../../hooks/createStyleHook";
 import { AuthLoginWithEmail_Mutation } from "../../services/auth.gql";
 
-const packageJson = require('../../package.json');
+const packageJson = require('../../../package.json');
 
 const useStyles = createStyleHook(({ height, width, theme }) => ({
     wrapper: {
@@ -63,6 +63,9 @@ export default function IndexScreen() {
             email, password
         }).then(resp => {
             console.log(resp);
+        }).catch(e => {
+            alert(e.message)
+            console.log(e)
         })
     }
 
@@ -133,14 +136,15 @@ export default function IndexScreen() {
                         </Card>
                     </Content>
                 </Box>
-            </ScrollView>
-            <Box center rowGap={16} mb={insets.bottom || 16}>
-                <Link href={"/register"}>
-                    <Text font={{ size: 16 }} mt={32}>Do not have an account? <Text color={colors.blue[500]}>Signup</Text></Text>
-                </Link>
+                <Box center rowGap={16} mb={insets.bottom || 16}>
+                    <Link href={"/register"}>
+                        <Text font={{ size: 16 }} mt={32}>Do not have an account? <Text color={colors.blue[500]}>Signup</Text></Text>
+                    </Link>
 
-                <Text align="center" size={12} color={colors.gray[400]}>v{packageJson.version}</Text>
-            </Box>
+                    <Text align="center" size={12} color={colors.gray[400]}>v{packageJson.version}</Text>
+                </Box>
+            </ScrollView>
+
             {/* <LoadingModal visible={controller.loading} /> */}
         </View >
     )

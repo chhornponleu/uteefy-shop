@@ -13,7 +13,7 @@ export default function AuthLayout() {
     if (token) {
         console.log('you are already logged in');
         return (
-            <Redirect href="/store-list" />
+            <Redirect href="/store" />
         )
     }
     return (
