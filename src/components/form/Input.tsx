@@ -71,15 +71,12 @@ export default React.forwardRef<TextInput, Props>(({
 
     return (
         <Box
-            row
             style={[
                 styles.wrapper,
                 { minHeight: height, overflow: 'visible' },
                 { backgroundColor: props.editable === false ? colors.gray[100] : undefined },
                 wrapperStyle
             ]}
-            items="center"
-            border={{}}
             {...wrapperProps}
         >
             {left}
@@ -102,24 +99,14 @@ export default React.forwardRef<TextInput, Props>(({
                     Platform.OS === 'web' ? { outline: "none" } as any : {},
                     { color: theme.colors.text, paddingVertical },
                     styles.input, style,
-                    // { backgroundColor: 'lightblue' }
                 ]}
             />
 
             {right}
 
             {(labelVisible) ? (
-                <Box
-                    px={8}
-                    style={{
-                        zIndex: 1, position: 'absolute',
-                        top: -8, left: 8,
-                        backgroundColor: theme.colors.background
-                    }}
-                >
-                    <Text
-                        size={12}
-                        color={colors.gray[400]}>
+                <Box >
+                    <Text >
                         {label}
                     </Text>
                 </Box>

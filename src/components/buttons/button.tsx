@@ -1,49 +1,80 @@
 
 
 import React from 'react';
-import { Pressable, PressableProps, StyleProp, ViewStyle } from "react-native";
-import { colors } from "../../commons/colors";
+import { Pressable, PressableProps } from "react-native";
 import { Text } from "../typo";
 
+type Colors = {
+    'primary': { text: string, container: string },
+    'secondary': { text: string, container: string },
+    'disabled': { text: string, container: string },
+    'danger': { text: string, container: string },
+    'warning': { text: string, container: string },
+    'success': { text: string, container: string },
+}
+
 const Variants = {
-    'default': { color: colors.white, backgroundColor: colors.black },
-    'primary': { color: colors.white, backgroundColor: colors.black },
-    'secondary': { color: colors.white, backgroundColor: colors.black },
-    'disabled': { color: colors.white, backgroundColor: colors.black },
+    'text': {
+        text: '',
+        container: '',
+        colors: {
+            primary: { text: 'text-black', container: '' },
+            secondary: { text: 'text-gray-600', container: '' },
+            disabled: { text: 'text-gray-400', container: '' },
+            danger: { text: 'text-red-600', container: '' },
+            warning: { text: 'text-orange-600', container: '' },
+            success: { text: 'text-green-600', container: '' },
+
+        } as Colors
+    },
+    'outlined': {
+        text: '',
+        container: 'border',
+        colors: {
+            primary: { text: 'text-black', container: 'border-black' },
+            secondary: { text: 'text-gray-600', container: 'border-gray-600' },
+            disabled: { text: 'text-gray-400', container: 'border-gray-400' },
+            danger: { text: 'text-red-600', container: 'border-red-600' },
+            warning: { text: 'text-orange-600', container: 'border-orange-600' },
+            success: { text: 'text-green-600', container: 'border-green-600' },
+        } as Colors
+    },
+    'filled': {
+        text: '',
+        container: '',
+        colors: {
+            primary: { text: 'text-white', container: 'bg-black' },
+            secondary: { text: 'text-gray-100', container: 'bg-gray-900' },
+            disabled: { text: 'text-gray-100', container: 'bg-gray-400' },
+            danger: { text: 'text-red-100', container: 'bg-red-600' },
+            warning: { text: 'text-orange-100', container: 'bg-orange-600' },
+            success: { text: 'text-green-100', container: 'bg-green-600' },
+        } as Colors
+    },
 }
 
 const Sizes = {
-    'sm': 32,
-    'md': 48,
-    'lg': 52,
-    'xl': 56,
+    'sm': { text: 'text-sm', container: 'py-2 px-4 rounded-sm' },
+    'md': { text: '', container: 'py-3 px-6 rounded-md' },
+    'lg': { text: '', container: 'py-4 px-8 rounded-lg' },
+    'xl': { text: '', container: 'py-5 px-10 rounded-xl' },
+    '2xl': { text: '', container: 'py-6 px-12 rounded-2xl' },
 }
-
-const Radius = {
-    'xs': 4,
-    'sm': 8,
-    'md': 12,
-    'lg': 16,
-    'xl': 20,
-    'pill': 100
-}
-
-type Type = 'plain' | 'bordered' | 'filled' | 'gradient';
 
 type Props = PressableProps & {
     loading?: boolean;
     left?: React.ReactNode;
     right?: React.ReactNode;
-    width?: number | string;
-    height?: number | string;
-    activeOpacity?: number;
-    children?: any;
-    size?: keyof typeof Sizes;
+
     variant?: keyof typeof Variants;
-    radius?: keyof typeof Radius;
-    alignSelf?: ViewStyle['alignSelf'];
-    type?: Type;
-    textColor?: string;
+    size?: keyof typeof Sizes;
+    color?: keyof Colors;
+
+
+    textClassName?: string;
+    fullWidth?: boolean;
+
+    children?: any
 }
 
 
@@ -51,43 +82,23 @@ export function Button({
     loading,
     left,
     right,
-    width,
-    activeOpacity = 0.7,
     children,
-    variant = 'default',
-    size = 'md',
-    radius = 'sm',
-    alignSelf = 'stretch',
-    type = 'filled',
-    textColor,
 
-    style,
+    fullWidth,
+    textClassName,
+
     ...props
 }: Props) {
-
-    const { backgroundColor, color } = Variants[variant] || {};
-    const minHeight = Sizes[size];
-    const borderRadius = Radius[radius];
-
+    const variants = Variants[props?.variant || 'text'];
+    const sizes = Sizes[props?.size || 'lg'];
+    const colors = variants?.colors?.[props?.color || 'primary'];
     return (
         <Pressable
-            style={({ ...params }) => ([
-                { alignSelf, alignItems: 'center', justifyContent: 'center', flexDirection: 'row' },
-                {
-                    alignSelf,
-                    borderRadius,
-                    backgroundColor,
-                    opacity: params.pressed ? activeOpacity : 1,
-                    minHeight,
-                    paddingHorizontal: minHeight
-                },
-                typeof style === "function" ? style(params) : style
-            ])}
             {...props}
+            className={`mt-2 ${!fullWidth && 'self-baseline'} ${variants?.container} ${sizes?.container} ${colors?.container} ${props.className}`}
         >
-
             {left}
-            <Text align="center" color={textColor || colors.white}>
+            <Text className={`text-center ${variants?.text || ''} ${sizes?.text} ${colors?.text} ${textClassName}`}>
                 {children}
             </Text>
             {right}

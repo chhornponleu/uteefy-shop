@@ -1,16 +1,11 @@
-import { Pressable, ScrollView, TextInput, View, useWindowDimensions } from "react-native";
+import { ScrollView, Text, TextInput, View, useWindowDimensions } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Path, Svg } from 'react-native-svg';
 
 import { useMutation } from "@apollo/client";
 import { Link, Stack } from "expo-router";
 import { useRef, useState } from "react";
-import { colors } from "../../commons/colors";
 import { Button } from "../../components/buttons";
-import { Box, Card } from "../../components/containers";
-import Content from "../../components/containers/Content";
-import Input from "../../components/form/Input";
-import { Text } from "../../components/typo";
+import { Box } from "../../components/containers";
 import { useAuthToken } from "../../context/AppProvider";
 import { createStyleHook } from "../../hooks/createStyleHook";
 import { AuthLoginWithEmail_Mutation } from "../../services/auth.gql";
@@ -46,7 +41,7 @@ const useLoginScreenViewController = () => {
 
 }
 
-export default function IndexScreen() {
+export default function LoginScreen() {
     const { styles } = useStyles();
     const insets = useSafeAreaInsets();
     const { width, height } = useWindowDimensions();
@@ -69,83 +64,48 @@ export default function IndexScreen() {
         })
     }
 
+
     return (
-        <View style={styles.wrapper}>
-            <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
-                <Stack.Screen options={{ headerShown: false }} />
-                <Box
-                    flex={{ justify: 'center', items: 'center', rowGap: 8 }}
-                    bg={colors.blue[400]}
-                    p={16} pt={insets.top + 40}
-                >
-                    <Box
-                        py={16}
-                        flex={{ justify: 'center', items: 'center', }}
-                    >
-                        <Text color={colors.white} size={32} weight="bold">uteefy</Text>
-                        <Text size={12} color={colors.gray[200]} >Your online menu</Text>
-                    </Box>
-                </Box>
+        <>
+            <Stack.Screen options={{ headerShown: false }} />
+            <View style={{ paddingTop: insets.top }} className="container mx-auto px-4">
+                <ScrollView bounces={false} showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="handled">
+                    <View>
+                        <Box>
+                            <Text className="text-4xl font-bold">uteefy</Text>
+                            <Text>Your online menu</Text>
+                        </Box>
+                    </View>
 
-                <Box bg={colors.white} style={{ marginTop: 0 }}>
-                    <Svg
-                        width={width} height={30}>
-                        <Path
-                            fill={colors.blue[400]}
-                            d={`M0,0s${width / 2},${60},${width},0Z`}
+                    <Text className="text-4xl">Login to your account</Text>
+                    <Box className="gap-y-1">
+                        <TextInput
+                            ref={emailRef}
+                            className="border-2 border-gray-300 dark:border-gray-700 rounded-lg px-4 py-4 mt-4 focus:outline-none   focus:border-purple-600 focus:border-2"
+                            value={email}
+                            onChangeText={setEmail}
                         />
-                    </Svg>
-                    <Content size="sm">
-                        <Card flex={{ gap: 8 }} style={{}}>
-                            <Box row items="flex-end" justify="space-between" mt={18}>
-                                <Text font={{ size: 18 }}>Login to your account</Text>
-                            </Box>
-                            <Box py={16}>
-                                <Input
-                                    // ref={emailRef}
-                                    value={email}
-                                    onChangeText={setEmail}
-                                    placeholder="Email"
-                                    keyboardType="email-address"
-                                    placeholderTextColor={colors.gray[400]}
-                                    style={styles.input}
-                                />
-                                <Input
-                                    // ref={passwordRef}
-                                    value={password}
-                                    onChangeText={setPassword}
-                                    placeholder="Password"
-                                    secureTextEntry
-                                    placeholderTextColor={colors.gray[400]}
-                                    style={styles.input}
-                                />
+                        <TextInput
+                            ref={passwordRef}
+                            className="border-2 border-gray-300 dark:border-gray-700 rounded-lg px-4 py-4 mt-4 focus:outline-none   focus:border-purple-600 focus:border-2"
+                            value={password}
+                            onChangeText={setPassword}
+                            secureTextEntry
+                        />
+                    </Box>
 
-                            </Box>
 
-                            <Button variant="primary" onPress={handleLoginPress}>
-                                <Text align="center" color={colors.white}>Login</Text>
-                            </Button>
-
-                            <Box items="flex-start" rowGap={32}>
-                                <Link asChild href="/forgot-password" style={{ alignSelf: 'flex-end', paddingVertical: 8 }}>
-                                    <Pressable style={({ pressed }) => ({ backgroundColor: 'blue', opacity: pressed ? 0.6 : 1 })}>
-                                        <Text size={14} color={colors.blue[500]}>Forgot password?</Text>
-                                    </Pressable>
-                                </Link>
-                            </Box>
-                        </Card>
-                    </Content>
-                </Box>
-                <Box center rowGap={16} mb={insets.bottom || 16}>
-                    <Link href={"/register"}>
-                        <Text font={{ size: 16 }} mt={32}>Do not have an account? <Text color={colors.blue[500]}>Signup</Text></Text>
+                    <Link asChild href="/forgot-password" style={{ alignSelf: 'flex-end', paddingVertical: 8 }}>
+                        <Text>Forgot password?</Text>
                     </Link>
 
-                    <Text align="center" size={12} color={colors.gray[400]}>v{packageJson.version}</Text>
-                </Box>
-            </ScrollView>
+                    <Link href={"/register"}>
+                        <Text>Do not have an account? <Text  >Signup</Text></Text>
+                    </Link>
 
-            {/* <LoadingModal visible={controller.loading} /> */}
-        </View >
+                    <Text>v{packageJson.version}</Text>
+                </ScrollView>
+            </View >
+        </>
     )
 }

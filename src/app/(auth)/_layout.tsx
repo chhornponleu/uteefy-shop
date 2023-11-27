@@ -1,5 +1,4 @@
 import { Redirect, Stack } from "expo-router";
-import React from 'react';
 import { defaultStackOptions } from "../../commons/navigation";
 import { useAuthToken } from "../../context/AppProvider";
 
@@ -13,11 +12,10 @@ export default function AuthLayout() {
     if (token) {
         console.log('you are already logged in');
         return (
-            <Redirect href="/store" />
+            <Redirect href="/store/home/" />
         )
     }
     return (
-        <Stack screenOptions={defaultStackOptions}
-        />
+        <Stack screenOptions={defaultStackOptions} />
     )
 }

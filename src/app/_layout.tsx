@@ -11,6 +11,8 @@ import { useColorScheme } from "react-native";
 import { apoloClient } from "../commons/apolloClient";
 import { LightTheme } from "../hooks/useTheme";
 
+import '../../styles/global.css';
+
 const client = new QueryClient()
 
 export default function RootLayout() {

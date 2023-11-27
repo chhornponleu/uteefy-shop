@@ -1,6 +1,6 @@
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import React, { useCallback, useEffect } from "react";
+import { createContext, useCallback, useEffect } from "react";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 import { Store } from "../data/types";
@@ -42,7 +42,7 @@ export const useAppContextStore = create(
     })
 )
 
-export const AppContext = React.createContext<IAppContextData>({
+export const AppContext = createContext<IAppContextData>({
     locale: 'en',
     ready: false,
 });
