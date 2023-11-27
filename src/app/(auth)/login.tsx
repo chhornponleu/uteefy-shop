@@ -9,6 +9,7 @@ import { Box } from "../../components/containers";
 import { useAuthToken } from "../../context/AppProvider";
 import { createStyleHook } from "../../hooks/createStyleHook";
 import { AuthLoginWithEmail_Mutation } from "../../services/auth.gql";
+import ButtonExample from "../../components/buttons/button.example";
 
 const packageJson = require('../../../package.json');
 
@@ -68,7 +69,7 @@ export default function LoginScreen() {
     return (
         <>
             <Stack.Screen options={{ headerShown: false }} />
-            <View style={{ paddingTop: insets.top }} className="container mx-auto px-4">
+            <View style={{ paddingTop: insets.top }} className="container max-w-2xl mx-auto px-4 bg-dkmfmkcmkdklmxzoxkxlkdslzkxaskjl;l,rcoisf,lr;,sgkldnljasmdksmdksmdsimdkf">
                 <ScrollView bounces={false} showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="handled">
                     <View>
                         <Box>
@@ -81,19 +82,22 @@ export default function LoginScreen() {
                     <Box className="gap-y-1">
                         <TextInput
                             ref={emailRef}
-                            className="border-2 border-gray-300 dark:border-gray-700 rounded-lg px-4 py-4 mt-4 focus:outline-none   focus:border-purple-600 focus:border-2"
+                            className="border-2 border-gray-300 dark:border-gray-700 rounded-lg px-4 py-4 mt-4 focus:border-purple-600 focus:border-2"
                             value={email}
                             onChangeText={setEmail}
                         />
                         <TextInput
                             ref={passwordRef}
-                            className="border-2 border-gray-300 dark:border-gray-700 rounded-lg px-4 py-4 mt-4 focus:outline-none   focus:border-purple-600 focus:border-2"
+                            className="border-2 border-gray-300 dark:border-gray-700 rounded-lg px-4 py-4 mt-4 focus:border-purple-600 focus:border-2"
                             value={password}
                             onChangeText={setPassword}
                             secureTextEntry
                         />
                     </Box>
 
+                    <Button fullWidth size="lg" className="rounded-lg" onPress={handleLoginPress} variant="filled">Login</Button>
+
+                    <ButtonExample />
 
                     <Link asChild href="/forgot-password" style={{ alignSelf: 'flex-end', paddingVertical: 8 }}>
                         <Text>Forgot password?</Text>

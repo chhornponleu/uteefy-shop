@@ -22,7 +22,7 @@ export default function ButtonExample() {
             {buttons.map((item, index) => {
                 const props = Object.keys(item).map(k => item[k]).join(', ');
                 return (
-                    <Button testID="button" onPress={() => alert(props)} key={index} {...(item as any)}>{props}</Button>
+                    <Button onPress={() => alert(props)} key={props} {...(item as any)}>{props}</Button>
                 )
             })}
         </View>

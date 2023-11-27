@@ -22,9 +22,9 @@ export default function RootLayout() {
     return (
         <QueryClientProvider client={client}>
             <ApolloProvider client={apoloClient}>
-                <AppContextProvider>
-                    <AppLayout />
-                </AppContextProvider>
+                {/* <AppContextProvider> */}
+                <AppLayout />
+                {/* </AppContextProvider> */}
             </ApolloProvider>
         </QueryClientProvider>
 

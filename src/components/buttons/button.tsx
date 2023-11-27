@@ -55,10 +55,10 @@ const Variants = {
 
 const Sizes = {
     'sm': { text: 'text-sm', container: 'py-2 px-4 rounded-sm' },
-    'md': { text: '', container: 'py-3 px-6 rounded-md' },
-    'lg': { text: '', container: 'py-4 px-8 rounded-lg' },
-    'xl': { text: '', container: 'py-5 px-10 rounded-xl' },
-    '2xl': { text: '', container: 'py-6 px-12 rounded-2xl' },
+    'md': { text: 'text-md', container: 'py-3 px-6 rounded-md' },
+    'lg': { text: 'text-lg', container: 'py-4 px-8 rounded-lg' },
+    'xl': { text: 'text-xl', container: 'py-5 px-10 rounded-xl' },
+    '2xl': { text: 'text-2xl', container: 'py-6 px-12 rounded-2xl' },
 }
 
 type Props = PressableProps & {
@@ -89,16 +89,29 @@ export function Button({
 
     ...props
 }: Props) {
-    const variants = Variants[props?.variant || 'text'];
-    const sizes = Sizes[props?.size || 'lg'];
+    const variants = Variants[props?.variant || 'filled'];
+    const sizes = Sizes[props?.size || 'md'];
     const colors = variants?.colors?.[props?.color || 'primary'];
     return (
         <Pressable
             {...props}
-            className={`mt-2 ${!fullWidth && 'self-baseline'} ${variants?.container} ${sizes?.container} ${colors?.container} ${props.className}`}
+            className={`
+                mt-2 
+                ${fullWidth ? undefined : 'self-baseline'} 
+                ${Variants[props?.variant]?.container} 
+                ${sizes?.container} 
+                ${colors?.container} 
+                ${props.className}
+            `}
         >
             {left}
-            <Text className={`text-center ${variants?.text || ''} ${sizes?.text} ${colors?.text} ${textClassName}`}>
+            <Text className={`
+                text-center 
+                ${variants?.text || ''} 
+                ${sizes?.text} 
+                ${colors?.text} 
+                ${textClassName}
+            `}>
                 {children}
             </Text>
             {right}
