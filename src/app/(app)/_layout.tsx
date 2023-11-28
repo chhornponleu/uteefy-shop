@@ -15,15 +15,6 @@ export default function AppLayout() {
         )
     }
 
-    // if (token && navigationsate?.routes?.[0]?.path === "/") {
-    //     console.log('auth token => storelist', { token });
-    //     return (
-    //         <Redirect href="/store-list" />
-    //     )
-    // }
-
-    // console.log('auth token => slot', { token });
-
     return (
         <Slot />
     )

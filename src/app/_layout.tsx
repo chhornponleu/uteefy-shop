@@ -12,6 +12,7 @@ import { apoloClient } from "../commons/apolloClient";
 import { LightTheme } from "../hooks/useTheme";
 
 import '../../styles/global.css';
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 const client = new QueryClient()
 
@@ -22,9 +23,9 @@ export default function RootLayout() {
     return (
         <QueryClientProvider client={client}>
             <ApolloProvider client={apoloClient}>
-                {/* <AppContextProvider> */}
-                <AppLayout />
-                {/* </AppContextProvider> */}
+                <AppContextProvider>
+                    <AppLayout />
+                </AppContextProvider>
             </ApolloProvider>
         </QueryClientProvider>
 

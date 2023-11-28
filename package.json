@@ -10,8 +10,8 @@
     "web": "expo start --web",
     "build:web": "npx expo export --platform web",
     "compile": "graphql-codegen",
-    "watch": "graphql-codegen -w",
-    "generate": "graphql-codegen"
+    "generate:watch": "graphql-codegen -w",
+    "generate": "graphql-codegen -v"
   },
   "dependencies": {
     "@apollo/client": "^3.8.7",
@@ -63,6 +63,7 @@
     "@graphql-codegen/cli": "^5.0.0",
     "@graphql-codegen/client-preset": "^4.1.0",
     "@graphql-typed-document-node/core": "^3.2.0",
+    "@parcel/watcher": "^2.3.0",
     "@testing-library/react-native": "^12.4.0",
     "@types/jest": "^29.5.10",
     "@types/lodash": "^4.14.195",

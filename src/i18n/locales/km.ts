@@ -56,6 +56,8 @@ export const km = {
     "capture": "ថតរូប",
     "choose": "ជ្រើសរើស",
     "media": "ថតរូប",
+    "sign_in": "ចូល",
+    "sign_out": "ចាកចេញ",
 
     "tax": "ពន្ធ",
     "tax_percent": "ពន្ធ (%)",

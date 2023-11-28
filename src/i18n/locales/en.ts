@@ -57,6 +57,8 @@ export const en = {
     "capture": "Capture",
     "choose": "Choose",
     "media": "Media",
+    "sign_in": "Sign in",
+    "sign_out": "Sign out",
 
     "tax": "Tax",
     "tax.percent": "Tax Percent",

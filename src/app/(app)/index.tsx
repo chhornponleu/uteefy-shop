@@ -3,15 +3,12 @@ import { Box } from "../../components/containers";
 import { Text } from "../../components/typo";
 import { useAppContext } from "../../context/AppProvider";
 import { useQuery } from "@apollo/client";
-import { StoreList_Query } from "../../services/store.gql";
+import { StoreList_Query } from "../../features/store/queries";
 import { Redirect } from "expo-router";
 
 type Props = {};
 
+// This will list shortcut to other features
 export default function StoreList({ }: Props) {
-    const { user } = useAppContext()
-    const { data, loading, refetch } = useQuery(StoreList_Query)
-
-    console.log('StoreList', { user, data, loading })
-    return <Redirect href={"/store/home/"} />
+    return <Redirect href={"/store/"} />
 }

@@ -1,15 +1,17 @@
-import {
-    useTheme
-} from "@react-navigation/native";
 import React from 'react';
-import { Box, BoxProps } from "./Box";
-
+import { View } from "react-native";
+import { BoxProps } from "./Box";
 
 type Props = BoxProps & {};
-export default function Page({ style, ...props }: Props) {
-    const them = useTheme();
+export default function Page({ ...props }: Props) {
     return (
-        <Box bg={them.colors.background} flex {...props} />
+        <View
+            {...props}
+            className={`
+                flex-1 bg-white 
+                ${props.className}
+            `}
+        />
     )
 
 }
