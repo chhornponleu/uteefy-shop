@@ -8,4 +8,4 @@ const config = getDefaultConfig(__dirname, { isCSSEnabled: true })
 config.resolver.sourceExts.push("mjs");
 
 // module.exports = config;
-module.exports = withNativeWind(config, { input: './styles/global.css' })
+module.exports = withNativeWind(config, { input: 'styles/global.css' })

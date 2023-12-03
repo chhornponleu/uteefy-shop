@@ -18,8 +18,8 @@ export function StoreListItem({ data, ...props }: Props) {
                 ${props.className}
             `}>
             <View>
-                <View className="flex-1 flex-row align-middle mb-2">
-                    <Text className="text-2xl">{data.name} </Text>
+                <View className="flex-1 flex-row align-middle mb-1">
+                    <Text className="text-xl">{data.name} </Text>
                     {data.currency ? (
                         <Text className="text-blue-400">({data.currency})</Text>
                     ) : null}

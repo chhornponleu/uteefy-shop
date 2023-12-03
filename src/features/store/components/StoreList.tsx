@@ -17,14 +17,7 @@ type Props = Partial<FlatListProps<StoreFields_FragmentFragment>> & {
 export function StoreList({ data, onItemPress, filter }: Props) {
     const datalist = useMemo(() => {
         if (!filter?.name) return data;
-        return data.filter((
-            item) => {
-            const matched = wildcardsMatch(item.name, filter?.name);
-            console.log("matched", matched);
-
-            return matched;
-        }
-        );
+        return data.filter(item => wildcardsMatch(item.name, filter?.name));
     }, [data, filter?.name]);
     return (
         <FlatList
