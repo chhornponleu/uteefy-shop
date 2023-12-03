@@ -16,6 +16,17 @@ export const Store_Fragment = gql(`
     }
 `)
 
+export const StoreMember_Fragment = gql(`
+    fragment StoreMemberFragment on StoreMember {
+        id
+        storeRoleId
+        userId
+        status
+        active
+        createdAt
+    }
+`);
+
 export const Store_Query = gql(`
     query StoreById($id: String!) {
         store(id: $id) {
@@ -48,6 +59,9 @@ export const StoreList_Query = gql(`
             image
             thumbnail
             createdAt
+            StoreMember {
+                ...StoreMemberFragment
+            }
         }
     }  
 `);

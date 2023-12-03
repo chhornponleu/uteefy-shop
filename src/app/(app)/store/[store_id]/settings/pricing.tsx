@@ -29,13 +29,13 @@ function Header(props: { title: string, iconRight?: any; onIconRightPress?: () =
 
 function Field(props: { title: string; }) {
     return (
-        <Text font={{}} color={colors.gray[500]} mb={8}>{props.title}</Text>
+        <Text color={colors.gray[500]} mb={8}>{props.title}</Text>
     )
 }
 
 function Value(props: { title: string; }) {
     return (
-        <Text font={{ size: 16, }}>{props.title}</Text>
+        <Text  >{props.title}</Text>
     )
 }
 
@@ -52,19 +52,18 @@ const taxes = {
 export default function Pricing({ }: Props) {
     const insets = useSafeAreaInsets();
 
-    const [taxIncluded, setTaxIncluded] = useState(true);
     const [taxItems, setTaxItems] = useState([])
 
     const [taxModalVisible, setTaxModalVisible] = useState<boolean>();
 
     return (
-        <Box flex>
+        <Box >
             <Stack.Screen options={{ title: 'Pricing' }} />
             <ScrollView contentInsetAdjustmentBehavior="automatic" contentContainerStyle={{ paddingBottom: 32 }}>
                 <Card>
                     <CardHeader title="Currency" />
                     <CardContent bordered>
-                        <Box gap={8}>
+                        <Box>
                             <Value title="Khmer Riels" />
                             <Field title="By changing currency, all your orders will be converted to then new currency" />
                         </Box>

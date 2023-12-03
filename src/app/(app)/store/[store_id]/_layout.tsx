@@ -1,5 +1,5 @@
 import { AntDesign, Feather } from "@expo/vector-icons";
-import { Tabs } from "expo-router";
+import { Stack, Tabs } from "expo-router";
 import React from 'react';
 import { colors } from "../../../../commons/colors";
 import { useI18nMany } from "../../../../i18n/useI18n";
@@ -31,44 +31,46 @@ export default function StoreLayout() {
     })
 
     return (
-        <Tabs
-            backBehavior="initialRoute"
-            initialRouteName="home"
-            sceneContainerStyle={{
-                backgroundColor: colors.white
-            }}
-            screenOptions={(props) => ({
-                headerShown: false,
-                tabBarShowLabel: true,
-                tabBarStyle: { paddingHorizontal: 24 },
-            })}>
+        <>
+            <Tabs
+                backBehavior="initialRoute"
+                initialRouteName="home"
+                sceneContainerStyle={{
+                    backgroundColor: colors.white
+                }}
+                screenOptions={(props) => ({
+                    headerShown: false,
+                    tabBarShowLabel: true,
+                    tabBarStyle: { paddingHorizontal: 24 },
+                })}>
 
-            <Tabs.Screen
-                name="home"
-                options={{
-                    title: t["home.tab_label"],
-                    tabBarIcon: ({ focused, color, size }) => tabIcons.home({ focused, color })
-                }}
-            />
-            <Tabs.Screen name="orders"
-                options={{
-                    title: t["orders.tab_label"],
-                    tabBarIcon: ({ focused, color, size }) => tabIcons.orders({ focused, color }),
-                    href: null, //hidden
-                }}
-            />
-            <Tabs.Screen name="items"
-                options={{
-                    title: t["items.tab_label"],
-                    tabBarIcon: tabIcons.items
-                }}
-            />
-            <Tabs.Screen name="settings"
-                options={{
-                    title: t["settings.tab_title"],
-                    tabBarIcon: tabIcons.settings
-                }}
-            />
-        </Tabs>
+                <Tabs.Screen
+                    name="home"
+                    options={{
+                        title: t["home.tab_label"],
+                        tabBarIcon: ({ focused, color, size }) => tabIcons.home({ focused, color })
+                    }}
+                />
+                <Tabs.Screen name="orders"
+                    options={{
+                        title: t["orders.tab_label"],
+                        tabBarIcon: ({ focused, color, size }) => tabIcons.orders({ focused, color }),
+                        href: null, //hidden
+                    }}
+                />
+                <Tabs.Screen name="items"
+                    options={{
+                        title: t["items.tab_label"],
+                        tabBarIcon: tabIcons.items
+                    }}
+                />
+                <Tabs.Screen name="settings"
+                    options={{
+                        title: t["settings.tab_title"],
+                        tabBarIcon: tabIcons.settings
+                    }}
+                />
+            </Tabs>
+        </>
     )
 }

@@ -96,4 +96,10 @@ export const km = {
     "product.category.title": "ឈ្មោះប្រភេទទំនិញ",
     "product.category.description": "ការពិពណ៌នា",
 
+    "store": "ហាង",
+    "store.name": "ឈ្មោះហាង",
+    "store.create": "បង្កើតហាង",
+    "store.edit": "កែប្រែហាង",
+    "store.delete": "លុបហាង",
+
 }

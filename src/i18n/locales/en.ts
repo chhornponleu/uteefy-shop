@@ -95,4 +95,11 @@ export const en = {
     "product.category": "Category",
     "product.category.title": "Category title",
     "product.category.description": "Category description",
+
+    "store": "Store",
+    "store.name": "Store name",
+    "store.create": "Create Store",
+    "store.edit": "Edit Store",
+    "store.delete": "Delete Store",
+
 }

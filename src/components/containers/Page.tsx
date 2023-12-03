@@ -1,6 +1,6 @@
 import React from 'react';
+import { Box, BoxProps } from "./Box";
 import { View } from "react-native";
-import { BoxProps } from "./Box";
 
 type Props = BoxProps & {};
 export default function Page({ ...props }: Props) {

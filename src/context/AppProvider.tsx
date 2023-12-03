@@ -3,8 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createContext, useCallback, useEffect } from "react";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
-import { Store } from "../data/types";
-import { User } from "../services/gql/graphql";
+import { Store, User } from "../../graphql/graphql";
 import { i18n } from "../i18n";
 
 interface IAppContextData {
@@ -49,6 +48,14 @@ export const AppContext = createContext<IAppContextData>({
 
 export function useAppContext() {
     return useAppContextStore(state => state.data);
+}
+
+export function useAuthLoguot() {
+    return useAppContextStore(state => ({
+        logout: useCallback(() => {
+            state.setData({ token: null, user: null, store: null })
+        }, [])
+    }));
 }
 
 export function useLocale() {

@@ -1,25 +1,23 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Slot } from "expo-router";
-import { AppContextProvider, useLocale } from "../context/AppProvider";
-
+import { AppContextProvider } from "../context/AppProvider";
 import { ApolloProvider } from "@apollo/client";
 import {
     ThemeProvider
 } from "@react-navigation/native";
-import { useMemo } from "react";
-import { useColorScheme } from "react-native";
+import { ComponentProps, useMemo } from "react";
+import { FlatList, useColorScheme } from "react-native";
 import { apoloClient } from "../commons/apolloClient";
 import { LightTheme } from "../hooks/useTheme";
 
 import '../../styles/global.css';
-import { SafeAreaProvider } from "react-native-safe-area-context";
+import { Text } from "../components/typo";
+import { FlashList } from "@shopify/flash-list";
 
 const client = new QueryClient()
 
+
 export default function RootLayout() {
-
-    console.log('----> _layout.tsx');
-
     return (
         <QueryClientProvider client={client}>
             <ApolloProvider client={apoloClient}>
@@ -33,8 +31,8 @@ export default function RootLayout() {
 }
 
 function AppLayout() {
-    const { locale } = useLocale();
     const theme = useColorScheme();
+
     const themeColors = useMemo(() => {
         return LightTheme;
     }, [theme])
