@@ -6,6 +6,8 @@ import { useRef, useState } from "react";
 import { Button } from "../../components/buttons";
 import { Box } from "../../components/containers";
 import { useLoginScreenViewController } from "./loginScreenController";
+import { TextI18n } from "../../components/typo/TextI18n";
+import { Ionicons } from "@expo/vector-icons";
 
 const packageJson = require('../../../package.json');
 const logo = require('../../assets/logo.png');
@@ -44,7 +46,7 @@ export default function LoginScreen() {
                     <Text>Your online menu</Text>
                     <View className="mt-8" />
                     <Text className="text-xl">Login to your account</Text>
-                    <Box className="gap-y-1 transition-opacity duration-500">
+                    <Box className="gap-y-1 mb-6 transition-opacity duration-500">
                         <TextInput
                             ref={emailRef}
                             className="border-2 border-gray-300 dark:border-gray-700 rounded-lg px-4 py-4 mt-4 focus:border-purple-600 focus:border-2"
@@ -61,7 +63,6 @@ export default function LoginScreen() {
                     </Box>
 
                     <Button
-
                         disabled={controller.state.loading}
                         // loading={controller.state.loading}
                         loading
@@ -72,17 +73,29 @@ export default function LoginScreen() {
                         Login
                     </Button>
 
-                    <Link asChild href="/forgot-password" style={{ alignSelf: 'flex-end', paddingVertical: 8 }}>
-                        <Text>Forgot password?</Text>
-                    </Link>
+                    <View className=" mt-4">
+                        <Link asChild href="/forgot-password" style={{ paddingVertical: 8 }}>
+                            <Text>Forgot password?</Text>
+                        </Link>
 
-                    <Link href={"/register"}>
-                        <Text>Do not have an account? <Text  >Signup</Text></Text>
-                    </Link>
+                        <Link href={"/register"}>
+                            <Text>Do not have an account? <Text >Signup</Text></Text>
+                        </Link>
+                    </View>
 
-                    <Text>v{packageJson.version}</Text>
                 </ScrollView>
-            </View >
+                <View className="gap-y-2 px-6" style={{ paddingBottom: insets.bottom }}>
+                    <Button variant="outlined" className="gap-x-96">
+                        <TextI18n code="login.learn_more" />
+                        <Ionicons name="arrow-forward-outline" />
+                    </Button>
+                    <TextI18n
+                        code="login.terms_greement"
+                        className="text-center"
+                    />
+                    <Text className="text-center">v{packageJson.version}</Text>
+                </View>
+            </View>
         </>
     )
 }

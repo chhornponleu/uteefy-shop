@@ -102,4 +102,8 @@ export const en = {
     "store.edit": "Edit Store",
     "store.delete": "Delete Store",
 
+
+    "login.terms_greement": "By loggin into or register new acccount, you agree with our Terms and Conditions",
+    "login.learn_more": "Learn more",
+
 }
