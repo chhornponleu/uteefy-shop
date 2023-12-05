@@ -105,5 +105,7 @@ export const en = {
 
     "login.terms_greement": "By loggin into or register new acccount, you agree with our Terms and Conditions",
     "login.learn_more": "Learn more",
+    "or_signin_with": "Or sign in with",
+    "login_to_your_account": "Login to your account",
 
 }

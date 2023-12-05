@@ -1,4 +1,4 @@
-import { Image, ScrollView, Text, TextInput, View } from "react-native";
+import { Image, ScrollView, Text, TextInput, View, useWindowDimensions } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { Link, Stack } from "expo-router";
@@ -14,6 +14,8 @@ const logo = require('../../assets/logo.png');
 
 export default function LoginScreen() {
     const insets = useSafeAreaInsets();
+    const [fh, setFh] = useState(0)
+    const { height } = useWindowDimensions()
     const controller = useLoginScreenViewController();
 
     const [email, setEmail] = useState('chhornponleu@gmail.com');
@@ -32,69 +34,92 @@ export default function LoginScreen() {
         })
     }
 
-
     return (
         <>
             <Stack.Screen options={{ headerShown: false }} />
-            <View style={{ paddingTop: insets.top }} className="container flex-1  max-w-2xl mx-auto px-4 bg-dkmfmkcmkdklmxzoxkxlkdslzkxaskjl;l,rcoisf,lr;,sgkldnljasmdksmdksmdsimdkf">
-                <ScrollView bounces={false} showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="handled">
-                    <Image
-                        source={logo}
-                        style={{ width: 100, height: 100 }}
-                    />
-                    <Text className="text-4xl font-bold">uteefy</Text>
-                    <Text>Your online menu</Text>
-                    <View className="mt-8" />
-                    <Text className="text-xl">Login to your account</Text>
-                    <Box className="gap-y-1 mb-6 transition-opacity duration-500">
-                        <TextInput
-                            ref={emailRef}
-                            className="border-2 border-gray-300 dark:border-gray-700 rounded-lg px-4 py-4 mt-4 focus:border-purple-600 focus:border-2"
-                            value={email}
-                            onChangeText={setEmail}
+            <View className="container flex-1  max-w-2xl mx-auto px-8">
+                <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="handled">
+                    <View
+                        style={{
+                            minHeight: height - insets.bottom - insets.top - fh,
+                        }}>
+                        <Image
+                            source={logo}
+                            style={{ width: 100, height: 100, marginTop: insets.top + 16 }}
                         />
-                        <TextInput
-                            ref={passwordRef}
-                            className="border-2 border-gray-300 dark:border-gray-700 rounded-lg px-4 py-4 mt-4 focus:border-purple-600 focus:border-2"
-                            value={password}
-                            onChangeText={setPassword}
-                            secureTextEntry
-                        />
-                    </Box>
+                        <Text className="text-4xl font-bold">uteefy</Text>
+                        <Text>Your online menu</Text>
+                        <View className="mt-8" />
+                        <TextI18n code="login_to_your_account" className="text-xl font-bold" />
+                        <Box className="gap-y-1 mb-4 transition-opacity duration-500">
+                            <TextInput
+                                ref={emailRef}
+                                className="border-2 border-gray-300 dark:border-gray-700 rounded-lg px-4 py-4 mt-4 focus:border-purple-600 focus:border-2"
+                                value={email}
+                                onChangeText={setEmail}
+                            />
+                            <TextInput
+                                ref={passwordRef}
+                                className="border-2 border-gray-300 dark:border-gray-700 rounded-lg px-4 py-4 mt-3 focus:border-purple-600 focus:border-2"
+                                value={password}
+                                onChangeText={setPassword}
+                                secureTextEntry
+                            />
+                        </Box>
 
-                    <Button
-                        disabled={controller.state.loading}
-                        // loading={controller.state.loading}
-                        loading
-                        fullWidth size="lg"
-                        className="active:opacity-80 transition duration-[300ms]"
-                        onPress={handleLoginPress}
-                        variant="filled">
-                        Login
-                    </Button>
+                        <Button
+                            disabled={controller.state.loading}
+                            // loading={controller.state.loading}
+                            loading
+                            fullWidth
+                            className="active:opacity-80 transition duration-[300ms]"
+                            onPress={handleLoginPress}
+                            variant="filled">
+                            Login
+                        </Button>
 
-                    <View className=" mt-4">
-                        <Link asChild href="/forgot-password" style={{ paddingVertical: 8 }}>
-                            <Text>Forgot password?</Text>
-                        </Link>
+                        <View className=" mt-4">
+                            <Link asChild href="/forgot-password" style={{ paddingVertical: 8 }}>
+                                <Text>Forgot password?</Text>
+                            </Link>
 
-                        <Link href={"/register"}>
-                            <Text>Do not have an account? <Text >Signup</Text></Text>
-                        </Link>
+                            <Link href={"/register"}>
+                                <Text>Do not have an account? <Text >Signup</Text></Text>
+                            </Link>
+                        </View>
+
+                        <TextI18n code="or_signin_with" className="text-xl font-bold mt-8" />
+                        <Button
+                            fullWidth
+                            variant="outlined"
+                            left={(
+                                <Ionicons name="logo-google" size={22} />
+                            )}
+                        >
+                            <Text>Google Account</Text>
+                        </Button>
                     </View>
-
+                    <View
+                        className="gap-y-2 p-6"
+                        onLayout={e => setFh(e.nativeEvent.layout.height)}
+                    >
+                        <Button
+                            variant="text"
+                            textClassName="text-blue-500"
+                            className="gap-x-96"
+                            style={{ alignSelf: 'center' }}>
+                            <TextI18n code="login.learn_more" className="mr-4" />
+                            <Text>{'   '}</Text>
+                            <Ionicons name="arrow-forward-outline" />
+                        </Button>
+                        <TextI18n
+                            code="login.terms_greement"
+                            className="text-center"
+                        />
+                        <Text className="text-center">v{packageJson.version}</Text>
+                    </View>
                 </ScrollView>
-                <View className="gap-y-2 px-6" style={{ paddingBottom: insets.bottom }}>
-                    <Button variant="outlined" className="gap-x-96">
-                        <TextI18n code="login.learn_more" />
-                        <Ionicons name="arrow-forward-outline" />
-                    </Button>
-                    <TextI18n
-                        code="login.terms_greement"
-                        className="text-center"
-                    />
-                    <Text className="text-center">v{packageJson.version}</Text>
-                </View>
+
             </View>
         </>
     )
