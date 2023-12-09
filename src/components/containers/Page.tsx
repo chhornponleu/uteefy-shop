@@ -8,7 +8,8 @@ export default function Page({ ...props }: Props) {
         <View
             {...props}
             className={`
-                flex-1 bg-white 
+                flex-1 
+                p-8
                 ${props.className}
             `}
         />

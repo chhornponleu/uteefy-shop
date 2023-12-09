@@ -7,43 +7,11 @@ import useTheme from "../../hooks/useTheme";
 import { Box, BoxProps } from "../containers";
 import { Text } from "../typo";
 
-const Sizes = {
-    sm: 32,
-    md: 44,
-    lg: 54,
-    xl: 64
-}
 
-const PaddingV = {
-    sm: 8,
-    md: 8,
-    lg: 8,
-    xl: 20
-}
 
-type Props = TextInputProps & {
-    label?: string;
-    left?: any;
-    right?: any;
-    size?: keyof typeof Sizes;
-    wrapperStyle?: ViewStyle,
-    wrapperProps?: Exclude<BoxProps, 'style'>,
-};
 
-const useStyle = createStyleHook(() => ({
-    input: {
-        flex: 1,
-    },
-    wrapper: {
-        borderWidth: 1, borderColor: colors.gray[400],
-        marginTop: 8,
-        marginBottom: 8,
-        borderRadius: 4,
-        paddingHorizontal: 16,
-    }
-}))
-
-export default React.forwardRef<TextInput, Props>(({
+export default ({
+    ref,
     left,
     right,
     style,
@@ -58,23 +26,17 @@ export default React.forwardRef<TextInput, Props>(({
     onBlur,
     onFocus,
     ...props
-}, ref) => {
+}) => {
 
     const theme = useTheme();
-    const { styles } = useStyle();
     const [focused, setFocused] = React.useState(false);
 
-    const height = Sizes[size];
-    const paddingVertical = PaddingV[size];
 
     const labelVisible = !!(label?.length > 0 && (focused || props.value));
 
     return (
         <Box
             style={[
-                styles.wrapper,
-                { minHeight: height, overflow: 'visible' },
-                { backgroundColor: props.editable === false ? colors.gray[100] : undefined },
                 wrapperStyle
             ]}
             {...wrapperProps}
@@ -97,8 +59,6 @@ export default React.forwardRef<TextInput, Props>(({
                 {...props}
                 style={[
                     Platform.OS === 'web' ? { outline: "none" } as any : {},
-                    { color: theme.colors.text, paddingVertical },
-                    styles.input, style,
                 ]}
             />
 
@@ -114,4 +74,4 @@ export default React.forwardRef<TextInput, Props>(({
 
         </Box>
     )
-})
+}

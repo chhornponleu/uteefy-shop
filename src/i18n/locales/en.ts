@@ -59,6 +59,7 @@ export const en = {
     "media": "Media",
     "sign_in": "Sign in",
     "sign_out": "Sign out",
+    "sign_up": "Sign up",
 
     "tax": "Tax",
     "tax.percent": "Tax Percent",
@@ -102,10 +103,11 @@ export const en = {
     "store.edit": "Edit Store",
     "store.delete": "Delete Store",
 
-
     "login.terms_greement": "By loggin into or register new acccount, you agree with our Terms and Conditions",
     "login.learn_more": "Learn more",
     "or_signin_with": "Or sign in with",
     "login_to_your_account": "Login to your account",
+    "do_no_account_qs": "Do not have account yet?",
+    "forgot_password": "Forgot password",
 
 }

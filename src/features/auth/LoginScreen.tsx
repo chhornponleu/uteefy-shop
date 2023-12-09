@@ -1,16 +1,43 @@
-import { Image, ScrollView, Text, TextInput, View, useWindowDimensions } from "react-native";
+import { Image, Pressable, ScrollView, Text, TextInput, View, useWindowDimensions } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
+import { useMutation } from "@apollo/client";
+import { Ionicons } from "@expo/vector-icons";
 import { Link, Stack } from "expo-router";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "../../components/buttons";
 import { Box } from "../../components/containers";
-import { useLoginScreenViewController } from "./loginScreenController";
 import { TextI18n } from "../../components/typo/TextI18n";
-import { Ionicons } from "@expo/vector-icons";
+import { useAuthToken, useLocale } from "../../context/AppProvider";
+import { AuthLoginWithEmail_Mutation } from "./queries";
+import LoadingModal from "../../components/indicator/LoadingModal";
+import i18next from "i18next";
 
 const packageJson = require('../../../package.json');
 const logo = require('../../assets/logo.png');
+
+
+export const useLoginScreenViewController = () => {
+    const authToken = useAuthToken();
+    const [mutateLogin, state] = useMutation(AuthLoginWithEmail_Mutation);
+
+    const handleLoginWithEmail = async (
+        data: { email: string, password: string }
+    ) => {
+        return mutateLogin({
+            variables: { data }
+        }).then(resp => {
+            authToken.setToken(resp.data?.signInWithEmail.token)
+            return resp;
+        });
+    }
+
+    return {
+        handleLoginWithEmail,
+        state
+    }
+
+}
 
 export default function LoginScreen() {
     const insets = useSafeAreaInsets();
@@ -23,6 +50,8 @@ export default function LoginScreen() {
     const emailRef = useRef<TextInput>(null);
     const passwordRef = useRef<TextInput>(null);
 
+    const { locale, setLocale } = useLocale();
+
     function handleLoginPress() {
         controller.handleLoginWithEmail({
             email, password
@@ -34,6 +63,7 @@ export default function LoginScreen() {
         })
     }
 
+
     return (
         <>
             <Stack.Screen options={{ headerShown: false }} />
@@ -41,26 +71,36 @@ export default function LoginScreen() {
                 <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="handled">
                     <View
                         style={{
-                            minHeight: height - insets.bottom - insets.top - fh,
+                            minHeight: height - fh - insets.bottom / 2,
                         }}>
-                        <Image
-                            source={logo}
-                            style={{ width: 100, height: 100, marginTop: insets.top + 16 }}
-                        />
-                        <Text className="text-4xl font-bold">uteefy</Text>
+                        <View className="flex-row justify-between" style={{ alignItems: 'center', marginTop: insets.top }}>
+                            <Image
+                                source={logo}
+                                style={{ width: 100, height: 100 }}
+                            />
+                            <Pressable
+                                onPress={() => {
+                                    setLocale(locale === 'en' ? 'km' : 'en')
+                                }}
+                                className="bg-gray-200 px-4 py-2 rounded-lg"
+                            >
+                                <Text className="text-blue-800 text-xl font-bold">{locale === 'en' ? 'KH' : 'EN'}</Text>
+                            </Pressable>
+                        </View>
+                        <Text className="text-4xl font-bold">Uteefy.com</Text>
                         <Text>Your online menu</Text>
                         <View className="mt-8" />
-                        <TextI18n code="login_to_your_account" className="text-xl font-bold" />
+                        <TextI18n code="login_to_your_account" className="text-xl font-bold" style={{ lineHeight: 32 }} />
                         <Box className="gap-y-1 mb-4 transition-opacity duration-500">
                             <TextInput
                                 ref={emailRef}
-                                className="border-2 border-gray-300 dark:border-gray-700 rounded-lg px-4 py-4 mt-4 focus:border-purple-600 focus:border-2"
+                                className="border border-gray-300 rounded-lg px-4 py-4 mt-4 focus:border-purple-600"
                                 value={email}
                                 onChangeText={setEmail}
                             />
                             <TextInput
                                 ref={passwordRef}
-                                className="border-2 border-gray-300 dark:border-gray-700 rounded-lg px-4 py-4 mt-3 focus:border-purple-600 focus:border-2"
+                                className="border border-gray-300 rounded-lg px-4 py-4 mt-3 focus:border-purple-600"
                                 value={password}
                                 onChangeText={setPassword}
                                 secureTextEntry
@@ -78,22 +118,22 @@ export default function LoginScreen() {
                             Login
                         </Button>
 
-                        <View className=" mt-4">
+                        <View className="mt-4 items-baseline">
                             <Link asChild href="/forgot-password" style={{ paddingVertical: 8 }}>
-                                <Text>Forgot password?</Text>
+                                <Text><TextI18n code="forgot_password" />?</Text>
                             </Link>
 
                             <Link href={"/register"}>
-                                <Text>Do not have an account? <Text >Signup</Text></Text>
+                                <Text><TextI18n code="do_no_account_qs" /> <TextI18n code="sign_up" className="text-blue-500" /></Text>
                             </Link>
                         </View>
 
-                        <TextI18n code="or_signin_with" className="text-xl font-bold mt-8" />
+                        <TextI18n code="or_signin_with" className="text-xl font-bold mt-8 mb-4" style={{ lineHeight: 36 }} />
                         <Button
                             fullWidth
                             variant="outlined"
                             left={(
-                                <Ionicons name="logo-google" size={22} />
+                                <Ionicons name="logo-google" size={18} />
                             )}
                         >
                             <Text>Google Account</Text>
@@ -109,7 +149,7 @@ export default function LoginScreen() {
                             className="gap-x-96"
                             style={{ alignSelf: 'center' }}>
                             <TextI18n code="login.learn_more" className="mr-4" />
-                            <Text>{'   '}</Text>
+                            <Text>{' '}</Text>
                             <Ionicons name="arrow-forward-outline" />
                         </Button>
                         <TextI18n
@@ -119,8 +159,10 @@ export default function LoginScreen() {
                         <Text className="text-center">v{packageJson.version}</Text>
                     </View>
                 </ScrollView>
-
             </View>
+            <LoadingModal
+                visible={controller?.state?.loading}
+            />
         </>
     )
 }

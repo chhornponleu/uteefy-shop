@@ -3714,6 +3714,18 @@
   resolved "https://registry.yarnpkg.com/@tootallnate/once/-/once-2.0.0.tgz#f544a148d3ab35801c1f633a7441fd87c2e484bf"
   integrity sha512-XCuKFP5PS55gnMVu3dty8KPatLqUoy/ZYzDzAGCQ8JNFCkLXzmI7vNHCR+XpbZaMWQK/vQubr7PkYq8g470J/A==
 
+"@tw-classed/core@1.6.0":
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/@tw-classed/core/-/core-1.6.0.tgz#949aa6010d94429c4a12f7ddb77b651d9fc3ada2"
+  integrity sha512-gmg05K1kfubxHcf39l3G4MV+psMj1EpV99w2sjuvskuJj8pl7Q1MRWRFsi0wCoiwuOe+9GzVk74/Eg3zytr1UQ==
+
+"@tw-classed/react@^1.6.1":
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/@tw-classed/react/-/react-1.6.1.tgz#26c53227b7651dd1e603103f7d755b374ba6cb8c"
+  integrity sha512-FlzBcJXQv6r6kGG4aLbXSF9wkbagvBq5eHNo4xCk2lPkybeo4oReBMhDG6D4jiPYAbe2OtuuoYViuj0al9lQQQ==
+  dependencies:
+    "@tw-classed/core" "1.6.0"
+
 "@types/babel__core@^7.1.14":
   version "7.20.4"
   resolved "https://registry.yarnpkg.com/@types/babel__core/-/babel__core-7.20.4.tgz#26a87347e6c6f753b3668398e34496d6d9ac6ac0"
@@ -9763,6 +9775,11 @@ react-native-svg@13.9.0:
   dependencies:
     css-select "^5.1.0"
     css-tree "^1.1.3"
+
+react-native-toast-notifications@^3.4.0:
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/react-native-toast-notifications/-/react-native-toast-notifications-3.4.0.tgz#9f2c79ec80fba4af6b788ecddf704f94cf21dbc2"
+  integrity sha512-ZvB//jLhRiBRemtcH7vGP1maiKCikqtW4aDqo+QYvEIOcX0y3GrjxRayVAqI4oh0qJgd/26DkbM8COobj+0MEQ==
 
 react-native-web@~0.19.6:
   version "0.19.6"

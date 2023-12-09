@@ -57,6 +57,7 @@ export const km = {
     "choose": "ជ្រើសរើស",
     "media": "ថតរូប",
     "sign_in": "ចូល",
+    "sign_up": "ចុះឈ្មោះ",
     "sign_out": "ចាកចេញ",
 
     "tax": "ពន្ធ",
@@ -101,5 +102,12 @@ export const km = {
     "store.create": "បង្កើតហាង",
     "store.edit": "កែប្រែហាង",
     "store.delete": "លុបហាង",
+
+    "login.terms_greement": "ដោយធ្វើការចូល ឬចុះឈ្មោះប្រើប្រាស់ អ្នកយល់ស្របនឹងលក្ខណនៃការប្រើប្រាស់",
+    "login.learn_more": "ស្វែងយល់បន្ថែម",
+    "or_signin_with": "ឬចូលក្នុងគណនីជាមួយ",
+    "login_to_your_account": "ចូលក្នុងគណនីរបស់អ្នក",
+    "do_no_account_qs": "មិនទាន់មានគណនីទេ?",
+    "forgot_password": "ភ្លេចលេខសំងាត់",
 
 }

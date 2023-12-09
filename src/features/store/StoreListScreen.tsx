@@ -25,7 +25,7 @@ export default function StoreListScreen({ }: Props) {
     const router = useRouter();
     return (
         <Page className="web:container web:mx-auto web:max-w-lg" style={{ paddingTop: insets.top }}>
-            <View className="flex-row justify-between p-8 pb-4">
+            <View className="flex-row justify-between px-4 py-8">
                 <View className="flex-1">
                     <Text className="font-semibold text-3xl">Uteefy.com</Text>
                     {/* <Text className="font-light text-lg">Your online catalog platform</Text> */}
@@ -35,7 +35,7 @@ export default function StoreListScreen({ }: Props) {
                 </Pressable>
             </View>
 
-            <View className="flex-row items-center mx-6 mb-2">
+            <View className="flex-row items-center mb-2">
                 <Ionicons name="search-outline" size={18} className="mx-4 absolute" />
                 <TextInput
                     value={search}
@@ -44,7 +44,7 @@ export default function StoreListScreen({ }: Props) {
                 />
             </View>
 
-            <View className="flex-1 px-8">
+            <View className="flex-1">
                 <StoreList
                     filter={{ name: search }}
                     data={data?.storeList || []}
@@ -54,9 +54,8 @@ export default function StoreListScreen({ }: Props) {
                 />
             </View>
             <View
-                className="px-8"
-                style={{ paddingBottom: insets.bottom || 16 }}>
-                <Button fullWidth size="lg" onPress={() => router.push('/(app)/store/create')}>
+                style={{ paddingBottom: insets.bottom / 2 || 16 }}>
+                <Button fullWidth round="xl" onPress={() => router.push('/(app)/store/create')}>
                     <TextI18n code="store.create" />
                 </Button>
             </View>

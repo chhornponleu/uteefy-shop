@@ -61,6 +61,17 @@ const Sizes = {
     '2xl': { text: 'text-2xl', container: 'py-8 px-14 rounded-2xl' },
 }
 
+const Rounds = {
+    'none': 'rounded-none',
+    'sm': 'rounded-sm',
+    'md': 'rounded-md',
+    'lg': 'rounded-lg',
+    'xl': 'rounded-xl',
+    '2xl': 'rounded-2xl',
+    "3xl": 'rounded-3xl',
+    'full': 'rounded-[1000]',
+}
+
 type Props = PressableProps & {
     loading?: boolean;
     left?: React.ReactNode;
@@ -69,6 +80,7 @@ type Props = PressableProps & {
     variant?: keyof typeof Variants;
     size?: keyof typeof Sizes;
     color?: keyof Colors;
+    round?: keyof typeof Rounds;
 
 
     textClassName?: string;
@@ -87,20 +99,26 @@ export function Button({
     fullWidth,
     textClassName,
 
+    variant = 'filled',
+    size = 'md',
+    color = 'primary',
+    round = 'md',
+
     ...props
 }: Props) {
-    const variants = Variants[props?.variant || 'filled'];
-    const sizes = Sizes[props?.size || 'md'];
-    const colors = variants?.colors?.[props?.color || 'primary'];
+    const variants = Variants[variant];
+    const sizes = Sizes[size];
+    const colors = variants?.colors?.[color];
     return (
         <Pressable
             {...props}
             className={`
                 mt-2 flex-row
                 ${fullWidth ? undefined : 'self-baseline'} 
-                ${Variants[props?.variant]?.container} 
+                ${variants?.container} 
                 ${sizes?.container} 
                 ${colors?.container} 
+                ${Rounds[round]}
                 ${props.className}
             `}
         >

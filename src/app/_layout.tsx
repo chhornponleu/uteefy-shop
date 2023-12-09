@@ -9,6 +9,7 @@ import { useColorScheme } from "react-native";
 import { apoloClient } from "../commons/apolloClient";
 import { AppContextProvider } from "../context/AppProvider";
 import { LightTheme } from "../hooks/useTheme";
+import { ToastProvider } from 'react-native-toast-notifications'
 
 import '../../styles/global.css';
 
@@ -19,9 +20,11 @@ export default function RootLayout() {
     return (
         <QueryClientProvider client={client}>
             <ApolloProvider client={apoloClient}>
-                <AppContextProvider>
-                    <AppLayout />
-                </AppContextProvider>
+                <ToastProvider>
+                    <AppContextProvider>
+                        <AppLayout />
+                    </AppContextProvider>
+                </ToastProvider>
             </ApolloProvider>
         </QueryClientProvider>
 

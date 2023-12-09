@@ -1,5 +1,5 @@
 import React from 'react';
-import { ActivityIndicator, ActivityIndicatorProps } from "react-native";
+import { ActivityIndicator, ActivityIndicatorProps, View } from "react-native";
 import ReactNativeModal from "react-native-modal";
 import { colors } from "../../commons/colors";
 import { Box } from "../containers";
@@ -26,15 +26,15 @@ export default function LoadingModal({
             backdropOpacity={0.5}
             style={{ justifyContent: 'center', alignItems: 'center' }}
         >
-            <Box bg={colors.white}
-                row={horizontal} center
-                py={16} px={horizontal ? 32 : 16}
-                minW={110} minH={horizontal ? 90 : 110}
-                radius={16} columnGap={16} rowGap={16}
+            <Box
+                style={{ minHeight: 100, minWidth: 100, rowGap: 5, paddingBottom: text ? 12 : 0 }}
+                className="bg-white place-items-center justify-center place-content-center rounded-xl"
             >
                 <ActivityIndicator animating size={size} />
                 {text ? (
-                    <Text size={12} numberOfLines={2}>{text}</Text>
+                    <View className="absolute left-0 bottom-0 right-0 pb-4">
+                        <Text className="text-center">{text}</Text>
+                    </View>
                 ) : null}
             </Box>
         </ReactNativeModal>
