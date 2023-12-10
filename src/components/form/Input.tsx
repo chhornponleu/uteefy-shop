@@ -1,77 +1,59 @@
-import React from 'react';
-import { Platform, TextInputProps, ViewStyle } from "react-native";
-import { TextInput } from "react-native-gesture-handler";
-import { colors } from "../../commons/colors";
-import { createStyleHook } from "../../hooks/createStyleHook";
-import useTheme from "../../hooks/useTheme";
-import { Box, BoxProps } from "../containers";
+import { TextInput, TextInputProps } from "react-native";
 import { Text } from "../typo";
+import React, { forwardRef } from "react";
 
+type InputProps = TextInputProps & {
+    ref?: React.MutableRefObject<TextInput>;
+    size?: 'sm' | 'md' | 'lg';
+    color?: 'primary' | 'secondary' | 'disabled' | 'danger' | 'warning' | 'success';
+    errorText?: string;
+    label?: string;
+}
 
+const classes = {
+    sizes: {
+        'sm': 'text-sm px-2 h-10 rounded-md',
+        'md': 'text-md px-4 h-14 rounded-lg',
+        'lg': 'text-lg px-6 h-16 rounded-lg',
+        'xl': 'text-xl px-6 h-18 rounded-lg',
+    },
+    colors: {
+        primary: { text: 'border-gray-900', container: '' },
+        secondary: { text: 'text-gray-600', container: '' },
+        disabled: { text: 'text-gray-200 text-gray-400', container: '' },
+        danger: { text: 'text-red-600', container: '' },
+        warning: { text: 'text-orange-600', container: '' },
+        success: { text: 'border-green-500', container: '' },
+    }
+}
 
-
-export default ({
-    ref,
-    left,
-    right,
-    style,
-    wrapperStyle,
-    wrapperProps = {},
-    placeholderTextColor = colors.gray[400],
-
+function InputComponent({
+    className,
     size = 'md',
     label,
-    placeholder,
-
-    onBlur,
-    onFocus,
+    color = 'primary',
+    errorText,
     ...props
-}) => {
-
-    const theme = useTheme();
-    const [focused, setFocused] = React.useState(false);
-
-
-    const labelVisible = !!(label?.length > 0 && (focused || props.value));
+}: InputProps, ref: React.MutableRefObject<TextInput>) {
 
     return (
-        <Box
-            style={[
-                wrapperStyle
-            ]}
-            {...wrapperProps}
-        >
-            {left}
-
+        <>
             <TextInput
-                ref={ref}
-                underlineColorAndroid={colors.transparent}
-                placeholderTextColor={placeholderTextColor}
-                placeholder={focused ? undefined : (placeholder || label)}
-                onFocus={(e) => {
-                    setFocused(true)
-                    onFocus?.(e);
-                }}
-                onBlur={(e) => {
-                    setFocused(false)
-                    onBlur?.(e);
-                }}
                 {...props}
-                style={[
-                    Platform.OS === 'web' ? { outline: "none" } as any : {},
-                ]}
+                ref={ref}
+                className={`
+                border-2 border-gray-200
+                rounded-md dark:border-black
+                ${classes.sizes[size]}
+                ${classes.colors[color].text}
+                ${className}
+            `}
             />
-
-            {right}
-
-            {(labelVisible) ? (
-                <Box >
-                    <Text >
-                        {label}
-                    </Text>
-                </Box>
+            {errorText ? (
+                <Text className="text-red-600">{errorText}</Text>
             ) : null}
-
-        </Box>
+        </>
     )
 }
+
+export const Input = forwardRef(InputComponent);

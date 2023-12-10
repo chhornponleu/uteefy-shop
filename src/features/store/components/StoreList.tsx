@@ -5,7 +5,9 @@ import { wildcardsMatch } from "../../../commons/stringutils";
 import { FlatList } from "../../../components/list/FlatList";
 import { StoreListItem } from "./StoreListItem";
 
-type Props = Partial<FlatListProps<StoreFields_FragmentFragment>> & {
+type Props = Exclude<FlatListProps<StoreFields_FragmentFragment>,
+    'data' | 'renderItem' | 'keyExtractor' | 'ItemSeparatorComponent' | 'numColumns'
+> & {
     filter?: {
         name?: string
     },
@@ -14,13 +16,14 @@ type Props = Partial<FlatListProps<StoreFields_FragmentFragment>> & {
 };
 
 
-export function StoreList({ data, onItemPress, filter }: Props) {
+export function StoreList({ data, onItemPress, filter, ...props }: Props) {
     const datalist = useMemo(() => {
         if (!filter?.name) return data;
         return data.filter(item => wildcardsMatch(item.name, filter?.name));
     }, [data, filter?.name]);
     return (
         <FlatList
+            {...props}
             data={datalist}
             numColumns={1}
             keyExtractor={(item, index) => item.id + '-' + index}

@@ -59,6 +59,14 @@ export const km = {
     "sign_in": "ចូល",
     "sign_up": "ចុះឈ្មោះ",
     "sign_out": "ចាកចេញ",
+    "continue": "បន្ត",
+    "next": "បន្ទាប់",
+    "previous": "មុន",
+    "back": "ថយក្រោយ",
+    "submit": "ដាក់ស្នើ",
+    "send": "ផ្ញើ",
+    "reset": "កំណត់ឡើងវិញ",
+
 
     "tax": "ពន្ធ",
     "tax_percent": "ពន្ធ (%)",
@@ -109,5 +117,5 @@ export const km = {
     "login_to_your_account": "ចូលក្នុងគណនីរបស់អ្នក",
     "do_no_account_qs": "មិនទាន់មានគណនីទេ?",
     "forgot_password": "ភ្លេចលេខសំងាត់",
-
+    "send_confirm_code": "ផ្ញើលេខកូដបញ្ជាក់",
 }

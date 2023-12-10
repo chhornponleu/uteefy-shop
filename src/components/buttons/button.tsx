@@ -29,7 +29,7 @@ const Variants = {
     },
     'outlined': {
         text: '',
-        container: 'border',
+        container: 'border-2',
         colors: {
             primary: { text: 'text-black', container: 'border-black' },
             secondary: { text: 'text-gray-600', container: 'border-gray-600' },
@@ -120,6 +120,7 @@ export function Button({
                 ${colors?.container} 
                 ${Rounds[round]}
                 ${props.className}
+                ${props.disabled ? 'opacity-70' : ''}
             `}
         >
             {left}

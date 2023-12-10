@@ -13,7 +13,10 @@ export default function Content({
     return (
         <View
             {...props}
-            className={``}
+            className={`
+                container mx-auto max-w-2xl
+                ${className}
+            `}
         />
     )
 }

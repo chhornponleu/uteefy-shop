@@ -13,18 +13,40 @@ import { StoreList } from "./components/StoreList";
 import { StoreList_Query } from "./queries";
 
 type Props = {};
+const PAGING_SIZE = 10;
 export default function StoreListScreen({ }: Props) {
     const { logout } = useAuthLoguot()
     const [search, setSearch] = useState('');
-    const { data } = useQuery(StoreList_Query, {
+    const { data, fetchMore } = useQuery(StoreList_Query, {
         variables: {
-            take: 10,
+            take: PAGING_SIZE,
         }
     });
     const insets = useSafeAreaInsets();
     const router = useRouter();
+
+    function handleFetchMore() {
+        fetchMore({
+            variables: {
+                take: PAGING_SIZE,
+                skip: 1,
+                cursor: {
+                    id: data?.storeList?.[data?.storeList?.length - 1]?.id
+                }
+            },
+            updateQuery(previousQueryResult, options) {
+                return {
+                    storeList: [
+                        ...previousQueryResult.storeList,
+                        ...options.fetchMoreResult.storeList
+                    ]
+                }
+            },
+        })
+    }
+
     return (
-        <Page className="web:container web:mx-auto web:max-w-lg" style={{ paddingTop: insets.top }}>
+        <Page className="web:container web:mx-auto web:max-w-2xl" style={{ paddingTop: insets.top }}>
             <View className="flex-row justify-between px-4 py-8">
                 <View className="flex-1">
                     <Text className="font-semibold text-3xl">Uteefy.com</Text>
@@ -51,8 +73,10 @@ export default function StoreListScreen({ }: Props) {
                     onItemPress={(item) => {
                         router.push(`/(app)/store/${item.id}/home`)
                     }}
+                    onEndReached={handleFetchMore}
                 />
             </View>
+
             <View
                 style={{ paddingBottom: insets.bottom / 2 || 16 }}>
                 <Button fullWidth round="xl" onPress={() => router.push('/(app)/store/create')}>

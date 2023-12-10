@@ -60,6 +60,14 @@ export const en = {
     "sign_in": "Sign in",
     "sign_out": "Sign out",
     "sign_up": "Sign up",
+    "continue": "Continue",
+    "next": "Next",
+    "previous": "Previous",
+    "back": "Back",
+    "submit": "Submit",
+    "send": "Send",
+    "reset": "Reset",
+
 
     "tax": "Tax",
     "tax.percent": "Tax Percent",
@@ -109,5 +117,6 @@ export const en = {
     "login_to_your_account": "Login to your account",
     "do_no_account_qs": "Do not have account yet?",
     "forgot_password": "Forgot password",
+    "send_confirm_code": "Send confirmation code",
 
 }
