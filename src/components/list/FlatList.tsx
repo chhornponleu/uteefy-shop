@@ -1,6 +1,6 @@
 import { ComponentProps } from "react";
 import { FlatList as RNFlatList } from "react-native";
-import { remapProps } from "react-native-css-interop";
+import { remapProps } from 'nativewind';
 
 export function FlatList<T>(props: ComponentProps<typeof RNFlatList<T>>) {
     if (props.numColumns == undefined || props.numColumns === 1) {

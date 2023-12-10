@@ -2,7 +2,7 @@ import { useQuery } from "@apollo/client";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import React, { useState } from 'react';
-import { Pressable, TextInput, View } from "react-native";
+import { ActivityIndicator, Pressable, TextInput, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Button } from "../../components/buttons";
 import Page from "../../components/containers/Page";
@@ -17,7 +17,7 @@ const PAGING_SIZE = 10;
 export default function StoreListScreen({ }: Props) {
     const { logout } = useAuthLoguot()
     const [search, setSearch] = useState('');
-    const { data, fetchMore } = useQuery(StoreList_Query, {
+    const { loading, data, fetchMore } = useQuery(StoreList_Query, {
         variables: {
             take: PAGING_SIZE,
         }
@@ -26,19 +26,30 @@ export default function StoreListScreen({ }: Props) {
     const router = useRouter();
 
     function handleFetchMore() {
+        if (loading) {
+            console.log('fetching more blocked', data);
+            return;
+        }
+        const id = data?.storeList?.[data?.storeList?.length - 1]?.id
+        console.log('fetching more', data);
+
         fetchMore({
             variables: {
                 take: PAGING_SIZE,
                 skip: 1,
                 cursor: {
-                    id: data?.storeList?.[data?.storeList?.length - 1]?.id
+                    id,
                 }
             },
-            updateQuery(previousQueryResult, options) {
+            updateQuery(prev, result) {
+                if (!result) {
+                    return prev;
+                }
                 return {
+                    ...prev,
                     storeList: [
-                        ...previousQueryResult.storeList,
-                        ...options.fetchMoreResult.storeList
+                        ...prev.storeList,
+                        ...result.fetchMoreResult.storeList
                     ]
                 }
             },
@@ -73,7 +84,15 @@ export default function StoreListScreen({ }: Props) {
                     onItemPress={(item) => {
                         router.push(`/(app)/store/${item.id}/home`)
                     }}
-                    onEndReached={handleFetchMore}
+                    ListFooterComponent={() => (
+                        <View className="flex-row justify-center p-4">
+                            <ActivityIndicator animating={loading} />
+                        </View>
+                    )}
+                    onEndReached={() => {
+                        !loading && handleFetchMore()
+                    }}
+
                 />
             </View>
 

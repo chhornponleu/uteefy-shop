@@ -5,7 +5,7 @@ import { wildcardsMatch } from "../../../commons/stringutils";
 import { FlatList } from "../../../components/list/FlatList";
 import { StoreListItem } from "./StoreListItem";
 
-type Props = Exclude<FlatListProps<StoreFields_FragmentFragment>,
+type Props = Omit<FlatListProps<StoreFields_FragmentFragment>,
     'data' | 'renderItem' | 'keyExtractor' | 'ItemSeparatorComponent' | 'numColumns'
 > & {
     filter?: {
@@ -23,17 +23,16 @@ export function StoreList({ data, onItemPress, filter, ...props }: Props) {
     }, [data, filter?.name]);
     return (
         <FlatList
-            {...props}
-            data={datalist}
-            numColumns={1}
-            keyExtractor={(item, index) => item.id + '-' + index}
-            columnWrapperStyle={undefined}
-            renderItem={({ item }) => (
-                <StoreListItem data={item} onPress={() => onItemPress?.(item)} />
-            )}
             ItemSeparatorComponent={() => (
                 <View className="bg-gray-100" style={{ height: 1 }} />
             )}
+            keyExtractor={(item, index) => item.id + '-' + index}
+            {...props}
+            data={datalist}
+            renderItem={({ item }) => (
+                <StoreListItem data={item} onPress={() => onItemPress?.(item)} />
+            )}
+
         />
     )
 }

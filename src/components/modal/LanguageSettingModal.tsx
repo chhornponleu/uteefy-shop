@@ -1,11 +1,12 @@
 import { useMemo, useState } from "react"
-import { Pressable, View } from "react-native"
+import { Platform, Pressable, View } from "react-native"
 import ReactNativeModal from "react-native-modal"
 import { Text } from "../typo"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { useLocale } from "../../context/AppProvider"
 import { FlatList } from "../list/FlatList"
 import { Ionicons } from "@expo/vector-icons"
+import Content from "../containers/Content"
 
 
 export function useChangeLanuageModal() {
@@ -34,14 +35,14 @@ function Modal({ visible, onRequestClose }: ModalProps) {
     return (
         <ReactNativeModal
             isVisible={visible}
-            useNativeDriver
+            useNativeDriver={Platform.OS !== 'web'}
             hideModalContentWhileAnimating
             onBackdropPress={onRequestClose}
             onBackButtonPress={onRequestClose}
             style={{ margin: 0, justifyContent: 'flex-end' }}
         >
             <View className="bg-white p-6 rounded-tl-3xl rounded-tr-3xl">
-                <View className="container max-w-xl m-auto">
+                <Content>
                     <Text className="text-xl font-bold text-gray-500 mb-10 mt-4">Choose your lanuage</Text>
                     <FlatList
                         data={[
@@ -63,8 +64,7 @@ function Modal({ visible, onRequestClose }: ModalProps) {
                             </Pressable>
                         )}
                     />
-                </View>
-
+                </Content>
             </View>
         </ReactNativeModal >
     )
