@@ -1,9 +1,10 @@
 import { Stack } from "expo-router";
 import { i18n } from "../../../i18n";
+import { defaultStackOptions } from "../../../commons/navigation";
 
 export default function StoreLayout() {
     return (
-        <Stack screenOptions={{}}>
+        <Stack screenOptions={defaultStackOptions}>
             <Stack.Screen name="index" options={{
                 headerShown: false,
                 headerTitle: i18n.t("store")

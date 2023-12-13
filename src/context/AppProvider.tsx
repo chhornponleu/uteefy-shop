@@ -92,8 +92,6 @@ export function useStore() {
 export function AppContextProvider(props) {
     const { data, setData } = useAppContextStore()
 
-    console.log('app context store :::: ', data)
-
     useEffect(() => {
         if (data.ready === undefined) {
             setData({ ready: true })

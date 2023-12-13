@@ -55,7 +55,7 @@ const Variants = {
 
 const Sizes = {
     'sm': { text: 'text-sm', container: 'py-2 px-4 rounded-lg' },
-    'md': { text: 'text-md', container: 'py-4 px-8 rounded-lg' },
+    'md': { text: 'text-md', container: 'py-3 px-8 rounded-lg' },
     'lg': { text: 'text-lg', container: 'py-5 px-10 rounded-xl' },
     'xl': { text: 'text-xl', container: 'py-6 px-12 rounded-2xl' },
     '2xl': { text: 'text-2xl', container: 'py-8 px-14 rounded-2xl' },

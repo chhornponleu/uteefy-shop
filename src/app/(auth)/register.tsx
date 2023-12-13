@@ -10,7 +10,6 @@ import { Box } from "../../components/containers";
 import Content from "../../components/containers/Content";
 import { Text } from "../../components/typo";
 import { createStyleHook } from "../../hooks/createStyleHook";
-import { auth } from "../../../libs/firebase";
 import { Input } from "../../components/form/Input";
 import { TextI18n } from "../../components/typo/TextI18n";
 

@@ -17,14 +17,14 @@ export function StoreListItem({ data, ...props }: Props) {
                 py-6 transition duration-300 active:border-gray-400 items-center rounded-lg flex-row justify-between
                 ${props.className}
             `}>
-            <View>
-                <View className="flex-1 flex-row align-middle mb-1">
-                    <Text className="text-xl">{data.name} </Text>
+            <View className="gap-y-2">
+                <View className="flex-1 flex-row align-middle">
+                    <Text className="text-lg font-bold">{data.name} </Text>
                     {data.currency ? (
                         <Text className="text-blue-400">({data.currency})</Text>
                     ) : null}
                 </View>
-                <Text>Role: Owner  <Text className="text-green-600 ml-4">Active</Text></Text>
+                <Text>Role: <Text className={`${data.active ? 'text-green-800' : 'text-red-800'}`}>{data.active ? 'active' : 'x'}</Text></Text>
             </View>
             {data.logo ? (
                 <Image

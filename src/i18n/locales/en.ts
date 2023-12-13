@@ -12,6 +12,7 @@ export const en = {
     "orders.edit": "Edit Order",
     "orders.delete": "Delete Order",
 
+    "settings": "Settings",
     "settings.tab_label": "Settings",
     "settings.tab_title": "Settings",
 

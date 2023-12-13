@@ -1,11 +1,29 @@
 import { gql } from "../../../graphql";
 
+const UserFragment = gql(`
+    fragment UserFragment on User {
+        id
+        email
+        fistName
+        middleName
+        lastName
+        phone
+        phoneCode
+        image
+        fullName
+        createdAt 
+    }
+`);
+
 export const AuthLoginWithEmail_Mutation = gql(`
     mutation LoginWithEmail($data: LoginWithEmailInput!) {
         signInWithEmail(
             data: $data
         ) {
-            token
+            token,
+            userInfo {
+                ...UserFragment
+            }
         }
     }
 `);

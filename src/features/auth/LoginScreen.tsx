@@ -1,18 +1,18 @@
-import { Image, Pressable, ScrollView, Text, TextInput, TouchableOpacity, View, useWindowDimensions } from "react-native";
+import { Image, Pressable, ScrollView, Text, TextInput, View, useWindowDimensions } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { useMutation } from "@apollo/client";
 import { Ionicons } from "@expo/vector-icons";
 import { Link, Stack } from "expo-router";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
+import { User } from "../../../graphql/graphql";
 import { Button } from "../../components/buttons";
 import { Box } from "../../components/containers";
-import { TextI18n } from "../../components/typo/TextI18n";
-import { useAuthToken, useLocale } from "../../context/AppProvider";
-import { AuthLoginWithEmail_Mutation } from "./queries";
 import LoadingModal from "../../components/indicator/LoadingModal";
-import i18next from "i18next";
 import { useChangeLanuageModal } from "../../components/modal/LanguageSettingModal";
+import { TextI18n } from "../../components/typo/TextI18n";
+import { useAuthToken, useLocale, useUserInfo } from "../../context/AppProvider";
+import { AuthLoginWithEmail_Mutation } from "./queries";
 
 const packageJson = require('../../../package.json');
 const logo = require('../../assets/logo.png');
@@ -20,6 +20,7 @@ const logo = require('../../assets/logo.png');
 
 export const useLoginScreenViewController = () => {
     const authToken = useAuthToken();
+    const userInfo = useUserInfo()
     const [mutateLogin, state] = useMutation(AuthLoginWithEmail_Mutation);
 
     const handleLoginWithEmail = async (
@@ -29,6 +30,7 @@ export const useLoginScreenViewController = () => {
             variables: { data }
         }).then(resp => {
             authToken.setToken(resp.data?.signInWithEmail.token)
+            userInfo.setUser(resp.data?.signInWithEmail.userInfo as User)
             return resp;
         });
     }
@@ -68,7 +70,18 @@ export default function LoginScreen() {
 
     return (
         <>
-            <Stack.Screen options={{ headerShown: false }} />
+            <Stack.Screen options={{
+                headerShown: true,
+                headerTransparent: true,
+                headerTitle: '',
+                headerRight: () => (
+                    <Pressable onPress={openLanguageSetting}>
+                        <View className="bg-gray-100 px-4 py-2 rounded-lg flex-row items-center gap-x-3">
+                            <Ionicons name="language" /><Text className="t">{locale === 'en' ? 'English' : 'ភាសាខ្មែរ'}</Text>
+                        </View>
+                    </Pressable>
+                ),
+            }} />
             <View className="container flex-1  max-w-2xl mx-auto px-8">
                 <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="handled">
                     <View
@@ -80,11 +93,11 @@ export default function LoginScreen() {
                                 source={logo}
                                 style={{ width: 100, height: 100 }}
                             />
-                            <TouchableOpacity onPress={openLanguageSetting}>
+                            {/* <TouchableOpacity onPress={openLanguageSetting}>
                                 <View className="bg-gray-100 px-4 py-2 rounded-lg flex-row items-center gap-x-3">
                                     <Ionicons name="language" /><Text className="t">{locale === 'en' ? 'English' : 'ភាសាខ្មែរ'}</Text>
                                 </View>
-                            </TouchableOpacity>
+                            </TouchableOpacity> */}
                         </View>
                         <Text className="text-4xl font-bold">Uteefy.com</Text>
                         <Text>Your online menu</Text>

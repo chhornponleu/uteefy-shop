@@ -9,7 +9,7 @@ export default function Page({ ...props }: Props) {
             {...props}
             className={`
                 flex-1 
-                p-8
+                p-6
                 ${props.className}
             `}
         />
