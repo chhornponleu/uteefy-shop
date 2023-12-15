@@ -1,16 +1,13 @@
 import { Entypo } from "@expo/vector-icons";
 import { useGlobalSearchParams, useRootNavigation, useRouter } from "expo-router";
 import React from 'react';
+import { View } from "react-native";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Box, Card, CardContent, CardHeader } from "../../../../../components/containers";
-import { Text } from "../../../../../components/typo";
 import { colors } from "../../../../../commons/colors";
+import { Box, Card, CardContent, CardHeader } from "../../../../../components/containers";
 import Page from "../../../../../components/containers/Page";
-import {
-    useTheme
-} from "@react-navigation/native";
-import { View } from "react-native";
+import { Text } from "../../../../../components/typo";
 
 function RowItem(props: { title: string; onPress?: () => void; }) {
     return (

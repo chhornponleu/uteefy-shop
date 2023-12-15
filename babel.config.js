@@ -6,8 +6,6 @@ module.exports = function (api) {
       "nativewind/babel"
     ],
     plugins: [
-      // NOTE: `expo-router/babel` is a temporary extension to `babel-preset-expo`.
-      require.resolve("expo-router/babel"),
 
       // https://docs.swmansion.com/react-native-reanimated/docs/fundamentals/installation
       '@babel/plugin-proposal-export-namespace-from',
